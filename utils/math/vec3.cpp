@@ -1,4 +1,4 @@
-#include <vec3.h>
+#include "vec3.h"
 
 namespace math {
 
@@ -16,8 +16,8 @@ namespace math {
 
 	vec3 vec3::cross(vec3 vector) {
 		return vec3(this->y*vector.z - this->z*vector.y,
-				    -(this->x*vector.z - this->z*vector.x,
-					this->x*vector.y - this->y*vector.x));
+				    -(this->x*vector.z - this->z*vector.x),
+					this->x*vector.y - this->y*vector.x);
 	}
 
 	vec3 operator+(vec3 left, vec3 right) {
