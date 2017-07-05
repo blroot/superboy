@@ -6,7 +6,7 @@ LDFLAGS =
 
 RM = /bin/rm -f 
 
-math.o: utils/math/vec3.cpp utils/math/vec3.h
-	$(CC) $(CFLAGS) $(INCFLAGS) -c utils/math/vec3.cpp
+math.o: utils/math/*.h
+	$(CC) $(CFLAGS) $(INCFLAGS) -c utils/math/*.cpp
 clean: 
 	$(RM) *.o 

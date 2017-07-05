@@ -1,3 +1,10 @@
+/*
+ * vec3.cpp
+ *
+ *  Created on: Jul 4, 2017
+ *      Author: blroot
+ */
+
 #include "vec3.h"
 
 namespace math {
@@ -20,6 +27,10 @@ namespace math {
 					this->x*vector.y - this->y*vector.x);
 	}
 
+	float vec3::dot(vec3 left, vec3 right) {
+		return left.x * right.x + left.y * right.y + left.z * right.z;
+	}
+
 	vec3 operator+(vec3 left, vec3 right) {
 		return vec3(left.x + right.x, left.y + right.y, left.z + right.z);
 	}
@@ -30,9 +41,5 @@ namespace math {
 
 	vec3 operator*(float scalar, vec3 vector) {
 		return vec3(scalar * vector.x, scalar * vector.y, scalar * vector.z);
-	}
-
-	float operator*(vec3 left, vec3 right) {
-		return left.x * right.x + left.y * right.y + left.z * right.z;
 	}
 }
