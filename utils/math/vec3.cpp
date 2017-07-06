@@ -6,6 +6,7 @@
  */
 
 #include "vec3.h"
+#include <math.h>
 
 namespace math {
 
@@ -27,19 +28,40 @@ namespace math {
 					this->x*vector.y - this->y*vector.x);
 	}
 
+	float vec3::norm() {
+		return sqrt(x*x + y*y + z*z);
+	}
+
+	vec3 vec3::normalize() {
+		float norm = this->norm();
+		return vec3(this->x/norm, this->y/norm, this->z/norm);
+	}
+
 	float vec3::dot(vec3 left, vec3 right) {
 		return left.x * right.x + left.y * right.y + left.z * right.z;
 	}
 
-	vec3 operator+(vec3 left, vec3 right) {
-		return vec3(left.x + right.x, left.y + right.y, left.z + right.z);
+	bool vec3::operator==(const vec3 &vector) {
+		return this->x == vector.x && this->y == vector.y && this->z == vector.z;
 	}
 
-	vec3 operator-(vec3 left, vec3 right) {
-		return vec3(left.x - right.x, left.y - right.y, left.z - right.z);
+	vec3 vec3::operator+(vec3 right) {
+		return vec3(this->x + right.x, this->y + right.y, this->z + right.z);
 	}
 
-	vec3 operator*(float scalar, vec3 vector) {
-		return vec3(scalar * vector.x, scalar * vector.y, scalar * vector.z);
+	vec3 vec3::operator-(vec3 right) {
+		return vec3(this->x - right.x, this->y - right.y, this->z - right.z);
 	}
+
+	vec3 vec3::operator*(float scalar) {
+		return vec3(scalar * this->x, scalar * this->y, scalar * this->z);
+	}
+
+	vec3 operator*(float scalar, const vec3 &vector) {
+			return vec3(scalar * vector.x, scalar * vector.y, scalar * vector.z);
+	}
+
+	vec3 operator*(int scalar, const vec3 &vector) {
+				return vec3(scalar * vector.x, scalar * vector.y, scalar * vector.z);
+		}
 }
