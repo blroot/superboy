@@ -11,7 +11,7 @@
 using namespace math;
 
 TEST(Vec3Test, NullVec) {
-	vec3 v = math::vec3();
+	vec3 v = vec3();
 
     ASSERT_EQ(v.x, 0.0f);
     ASSERT_EQ(v.y, 0.0f);
@@ -19,7 +19,7 @@ TEST(Vec3Test, NullVec) {
 }
 
 TEST(Vec3Test, UnitVecCreation) {
-	vec3 v = math::vec3(1.0f, 1.0f, 1.0f);
+	vec3 v = vec3(1.0f, 1.0f, 1.0f);
 
     ASSERT_EQ(v.x, 1.0f);
     ASSERT_EQ(v.y, 1.0f);
@@ -27,8 +27,8 @@ TEST(Vec3Test, UnitVecCreation) {
 }
 
 TEST(Vec3Test, Add) {
-	vec3 v = math::vec3(1.0f, 6.0f, 1.0f);
-	vec3 w = math::vec3(5.0f, 1.0f, 0.0f);
+	vec3 v = vec3(1.0f, 6.0f, 1.0f);
+	vec3 w = vec3(5.0f, 1.0f, 0.0f);
 
 	vec3 u = v + w;
 
@@ -38,8 +38,8 @@ TEST(Vec3Test, Add) {
 }
 
 TEST(Vec3Test, Substract) {
-	vec3 v = math::vec3(1.0f, 6.0f, 1.0f);
-	vec3 w = math::vec3(5.0f, 1.0f, 0.0f);
+	vec3 v = vec3(1.0f, 6.0f, 1.0f);
+	vec3 w = vec3(5.0f, 1.0f, 0.0f);
 
 	vec3 u = v - w;
 
@@ -49,7 +49,7 @@ TEST(Vec3Test, Substract) {
 }
 
 TEST(Vec3Test, ByScalarProduct) {
-	vec3 v = math::vec3(1.0f, 6.0f, 2.0f);
+	vec3 v = vec3(1.0f, 6.0f, 2.0f);
 
 	vec3 u = 5*v;
 
@@ -59,7 +59,7 @@ TEST(Vec3Test, ByScalarProduct) {
 }
 
 TEST(Vec3Test, Normalize) {
-	vec3 v = math::vec3(5.0f, 3.0f, 2.0f);
+	vec3 v = vec3(5.0f, 3.0f, 2.0f);
 	vec3 versor_v = v.normalize();
 
     ASSERT_FLOAT_EQ(versor_v.x, 0.8111071);
