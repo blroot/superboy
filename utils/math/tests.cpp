@@ -67,6 +67,17 @@ TEST(Vec3Test, Normalize) {
     ASSERT_FLOAT_EQ(versor_v.z, 0.32444283);
 }
 
+TEST(Vec3Test, Cross) {
+	vec3 v = vec3(1.0f, 0.0f, 0.0f);
+	vec3 w = vec3(0.0f, 1.0f, 0.0f);
+
+	vec3 u = v.cross(w);
+
+	ASSERT_EQ(u.x, 0.0f);
+	ASSERT_EQ(u.y, 0.0f);
+	ASSERT_EQ(u.z, 1.0f);
+}
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
