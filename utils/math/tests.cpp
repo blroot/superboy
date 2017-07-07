@@ -48,7 +48,7 @@ TEST(Vec3Test, Substract) {
 	ASSERT_EQ(u.z, 1.0f);
 }
 
-TEST(Vec3Test, ByScalarProduct) {
+TEST(Vec3Test, ScalarMultiplication) {
 	vec3 v = vec3(1.0f, 6.0f, 2.0f);
 
 	vec3 u = 5*v;
