@@ -37,8 +37,8 @@ namespace math {
 		return vec3(this->x/norm, this->y/norm, this->z/norm);
 	}
 
-	float vec3::dot(vec3 left, vec3 right) {
-		return left.x * right.x + left.y * right.y + left.z * right.z;
+	float vec3::dot(vec3 vector) {
+		return this->x * vector.x + this->y * vector.y + this->z * vector.z;
 	}
 
 	bool vec3::operator==(const vec3 &vector) {
@@ -58,10 +58,10 @@ namespace math {
 	}
 
 	vec3 operator*(float scalar, const vec3 &vector) {
-			return vec3(scalar * vector.x, scalar * vector.y, scalar * vector.z);
+		return vec3(scalar * vector.x, scalar * vector.y, scalar * vector.z);
 	}
 
 	vec3 operator*(int scalar, const vec3 &vector) {
-				return vec3(scalar * vector.x, scalar * vector.y, scalar * vector.z);
-		}
+		return vec3(scalar * vector.x, scalar * vector.y, scalar * vector.z);
+	}
 }

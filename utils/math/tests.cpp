@@ -58,6 +58,15 @@ TEST(Vec3Test, ScalarMultiplication) {
 	ASSERT_EQ(u.z, 10.0f);
 }
 
+TEST(Vec3Test, DotProduct) {
+	vec3 v = vec3(1.0f, 6.0f, 2.0f);
+	vec3 w = vec3(5.0f, 1.0f, 0.0f);
+
+	float u = v.dot(w);
+
+	ASSERT_EQ(u, 11.0f);
+}
+
 TEST(Vec3Test, Normalize) {
 	vec3 v = vec3(5.0f, 3.0f, 2.0f);
 	vec3 versor_v = v.normalize();
