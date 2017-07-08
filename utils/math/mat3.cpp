@@ -15,15 +15,24 @@ namespace math {
 
 	mat3::mat3() {
 
+		for (int i = 0; i < 9; i++) {
+			this->elements[i] = 0.0f;
+		}
 	}
 
 	mat3::mat3(float diagonal) {
+
+		for (int i = 0; i < 9; i++) {
+					this->elements[i] = 0.0f;
+		}
+
 		elements[0] = diagonal;
 		elements[4] = diagonal;
 		elements[8] = diagonal;
 	}
 
 	mat3::mat3(float a, float b, float c, float d, float e, float f, float g, float h, float i) {
+
 		elements[0] = a;
 		elements[1] = d;
 		elements[2] = g;
@@ -35,23 +44,101 @@ namespace math {
 		elements[8] = i;
 	}
 
-	mat3 mat3::transpose(const mat3 &matrix) {
-		return mat3(matrix.elements[0], matrix.elements[1], matrix.elements[2],
-					matrix.elements[3], matrix.elements[4], matrix.elements[5],
-					matrix.elements[6], matrix.elements[7], matrix.elements[8]);
+	mat3 mat3::transpose() {
+
+		return mat3(this->elements[0], this->elements[1], this->elements[2],
+					this->elements[3], this->elements[4], this->elements[5],
+					this->elements[6], this->elements[7], this->elements[8]);
 	}
 
-	mat3 operator*(mat3 left, mat3 right) {
-		return mat3(left.elements[0]*right.elements[0] + left.elements[3]*right.elements[1] + left.elements[6]*right.elements[2],
-					left.elements[0]*right.elements[3] + left.elements[3]*right.elements[4] + left.elements[6]*right.elements[5],
-					left.elements[0]*right.elements[6] + left.elements[3]*right.elements[7] + left.elements[6]*right.elements[8],
-					left.elements[1]*right.elements[0] + left.elements[4]*right.elements[1] + left.elements[7]*right.elements[2],
-					left.elements[1]*right.elements[3] + left.elements[4]*right.elements[4] + left.elements[7]*right.elements[5],
-					left.elements[1]*right.elements[6] + left.elements[4]*right.elements[7] + left.elements[7]*right.elements[8],
-					left.elements[2]*right.elements[0] + left.elements[5]*right.elements[1] + left.elements[8]*right.elements[2],
-					left.elements[2]*right.elements[3] + left.elements[5]*right.elements[4] + left.elements[8]*right.elements[5],
-					left.elements[2]*right.elements[6] + left.elements[5]*right.elements[7] + left.elements[8]*right.elements[8]
+	float mat3::determinant() {
+		return(this->elements[0]*this->elements[4]*this->elements[8]
+			   + this->elements[1]*this->elements[5]*this->elements[6]
+			   + this->elements[2]*this->elements[3]*this->elements[7]
+			   - this->elements[2]*this->elements[4]*this->elements[6]
+			   - this->elements[0]*this->elements[5]*this->elements[7]
+			   - this->elements[1]*this->elements[3]*this->elements[8]);
+	}
+
+	mat3 mat3::inverse() {
+
+		mat3 inverse = mat3();
+		mat3 cofactor = mat3();
+
+		cofactor.elements[0] = this->elements[4]*this->elements[8] - this->elements[5]*this->elements[7];
+		cofactor.elements[1] = -(this->elements[3]*this->elements[8] - this->elements[5]*this->elements[6]);
+		cofactor.elements[2] = this->elements[3]*this->elements[7] - this->elements[4]*this->elements[6];
+		cofactor.elements[3] = -(this->elements[1]*this->elements[8] - this->elements[2]*this->elements[7]);
+		cofactor.elements[4] = this->elements[0]*this->elements[8] - this->elements[2]*this->elements[6];
+		cofactor.elements[5] = -(this->elements[0]*this->elements[7] - this->elements[1]*this->elements[6]);
+		cofactor.elements[6] = this->elements[1]*this->elements[5] - this->elements[2]*this->elements[4];
+		cofactor.elements[7] = -(this->elements[0]*this->elements[5] - this->elements[2]*this->elements[3]);
+		cofactor.elements[8] = this->elements[0]*this->elements[4] - this->elements[1]*this->elements[3];
+
+	    return 1/this->determinant()*cofactor.transpose();
+	}
+
+	mat3& mat3::operator=(mat3 matrix) {
+
+		for (int i = 0; i < 9; i++)  {
+			this->elements[i] = matrix.elements[i];
+		}
+	}
+
+	mat3 mat3::operator*(mat3 matrix) {
+
+		return mat3(this->elements[0]*matrix.elements[0] + this->elements[3]*matrix.elements[1] + this->elements[6]*matrix.elements[2],
+					this->elements[0]*matrix.elements[3] + this->elements[3]*matrix.elements[4] + this->elements[6]*matrix.elements[5],
+					this->elements[0]*matrix.elements[6] + this->elements[3]*matrix.elements[7] + this->elements[6]*matrix.elements[8],
+					this->elements[1]*matrix.elements[0] + this->elements[4]*matrix.elements[1] + this->elements[7]*matrix.elements[2],
+					this->elements[1]*matrix.elements[3] + this->elements[4]*matrix.elements[4] + this->elements[7]*matrix.elements[5],
+					this->elements[1]*matrix.elements[6] + this->elements[4]*matrix.elements[7] + this->elements[7]*matrix.elements[8],
+					this->elements[2]*matrix.elements[0] + this->elements[5]*matrix.elements[1] + this->elements[8]*matrix.elements[2],
+					this->elements[2]*matrix.elements[3] + this->elements[5]*matrix.elements[4] + this->elements[8]*matrix.elements[5],
+					this->elements[2]*matrix.elements[6] + this->elements[5]*matrix.elements[7] + this->elements[8]*matrix.elements[8]
 					);
+	}
+
+	mat3 mat3::operator*(float scalar) {
+
+		mat3 resulting_matrix = mat3();
+
+		for (int i = 0; i < 9; i++) {
+			resulting_matrix.elements[i] = scalar*this->elements[i];
+		}
+
+		return resulting_matrix;
+	}
+
+	mat3 operator*(float scalar, const mat3& matrix) {
+		mat3 resulting_matrix = mat3();
+
+		for (int i = 0; i < 9; i++) {
+			resulting_matrix.elements[i] = scalar*matrix.elements[i];
+		}
+
+		return resulting_matrix;
+	}
+
+	mat3 operator*(int scalar, const mat3& matrix) {
+		mat3 resulting_matrix = mat3();
+
+		for (int i = 0; i < 9; i++) {
+			resulting_matrix.elements[i] = scalar*matrix.elements[i];
+		}
+
+		return resulting_matrix;
+	}
+
+	bool mat3::operator==(mat3 matrix) {
+
+		bool result = true;
+		for (int i = 0; i < 9; i++) {
+			if (this->elements[i] != matrix.elements[i]) {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 }
