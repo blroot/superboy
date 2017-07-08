@@ -63,7 +63,6 @@ namespace math {
 
 	mat3 mat3::inverse() {
 
-		mat3 inverse = mat3();
 		mat3 cofactor = mat3();
 
 		cofactor.elements[0] = this->elements[4]*this->elements[8] - this->elements[5]*this->elements[7];

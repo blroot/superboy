@@ -286,6 +286,33 @@ TEST(Mat4Test, ScalarMultiplication) {
 	ASSERT_FLOAT_EQ(C.elements[15], 33.0f);
 }
 
+TEST(Mat4Test, Inverse) {
+	mat4 C = mat4(1.0f, 2.0f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 4.0f, 2.0f, 2.0f, 1.0f, 1.0f, 2.0f, 2.0f).inverse();
+
+	ASSERT_FLOAT_EQ(C.elements[0], -3.0f);
+	ASSERT_FLOAT_EQ(C.elements[1], 1.0f);
+	ASSERT_FLOAT_EQ(C.elements[2], 0.0f);
+	ASSERT_FLOAT_EQ(C.elements[3], 1.0f);
+	ASSERT_FLOAT_EQ(C.elements[4], 6.0f);
+	ASSERT_FLOAT_EQ(C.elements[5], -2.0f);
+	ASSERT_FLOAT_EQ(C.elements[6], -1.0f);
+	ASSERT_FLOAT_EQ(C.elements[7], -1.0f);
+	ASSERT_FLOAT_EQ(C.elements[8], 1.0f);
+	ASSERT_FLOAT_EQ(C.elements[9], 0.0f);
+	ASSERT_FLOAT_EQ(C.elements[10], 0.0f);
+	ASSERT_FLOAT_EQ(C.elements[11], -0.5f);
+	ASSERT_FLOAT_EQ(C.elements[12], -4.0f);
+	ASSERT_FLOAT_EQ(C.elements[13], 1.0f);
+	ASSERT_FLOAT_EQ(C.elements[14], 1.0f);
+	ASSERT_FLOAT_EQ(C.elements[15], 1.0f);
+}
+
+TEST(Mat4Test, Determinant) {
+	mat4 C = mat4(1.0f, 2.0f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 4.0f, 2.0f, 2.0f, 1.0f, 1.0f, 2.0f, 2.0f);
+
+	ASSERT_FLOAT_EQ(C.determinant(), -2.0f);
+}
+
 TEST(Mat4Test, DiagonalDeterminant) {
 	mat4 M = mat4(1.0f);
 
@@ -294,17 +321,7 @@ TEST(Mat4Test, DiagonalDeterminant) {
 
 
 int main(int argc, char **argv) {
-    mat3 M = mat3(1.0f, 2.0f, 1.0f, 2.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f).inverse();
-    printf("%.2f \n", M.elements[0]);
-    printf("%.2f\n", M.elements[1]);
-    printf("%.2f\n", M.elements[2]);
-    printf("%.2f\n", M.elements[3]);
-    printf("%.2f\n", M.elements[4]);
-    printf("%.2f\n", M.elements[5]);
-    printf("%.2f\n", M.elements[6]);
-    printf("%.2f\n", M.elements[7]);
-    printf("%.2f\n", M.elements[8]);
 
-    testing::InitGoogleTest(&argc, argv);
+	testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

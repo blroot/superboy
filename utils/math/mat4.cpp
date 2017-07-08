@@ -111,7 +111,137 @@ namespace math {
 		);
 	}
 
+	mat4 mat4::inverse() {
+
+		mat4 cofactor = mat4();
+
+		cofactor.elements[0] = (this->elements[5]*this->elements[10]*this->elements[15]
+							    + this->elements[6]*this->elements[11]*this->elements[13]
+							    + this->elements[7]*this->elements[9]*this->elements[14]
+							    - this->elements[13]*this->elements[10]*this->elements[7]
+							    - this->elements[14]*this->elements[11]*this->elements[5]
+							    - this->elements[15]*this->elements[9]*this->elements[6]);
+
+		cofactor.elements[1] = -(this->elements[4]*this->elements[10]*this->elements[15]
+					            + this->elements[6]*this->elements[11]*this->elements[12]
+								+ this->elements[7]*this->elements[8]*this->elements[14]
+								- this->elements[12]*this->elements[10]*this->elements[7]
+								- this->elements[14]*this->elements[11]*this->elements[4]
+								- this->elements[15]*this->elements[8]*this->elements[6]);
+
+		cofactor.elements[2] = (this->elements[4]*this->elements[9]*this->elements[15]
+							    + this->elements[5]*this->elements[11]*this->elements[12]
+							    + this->elements[7]*this->elements[8]*this->elements[13]
+								- this->elements[12]*this->elements[9]*this->elements[7]
+								- this->elements[13]*this->elements[11]*this->elements[4]
+								- this->elements[15]*this->elements[8]*this->elements[5]);
+
+		cofactor.elements[3] = -(this->elements[4]*this->elements[9]*this->elements[14]
+							    + this->elements[5]*this->elements[10]*this->elements[12]
+								+ this->elements[6]*this->elements[8]*this->elements[13]
+								- this->elements[12]*this->elements[9]*this->elements[6]
+								- this->elements[13]*this->elements[10]*this->elements[4]
+								- this->elements[14]*this->elements[8]*this->elements[5]);
+
+		cofactor.elements[4] = -(this->elements[1]*this->elements[10]*this->elements[15]
+							    + this->elements[2]*this->elements[11]*this->elements[13]
+								+ this->elements[3]*this->elements[9]*this->elements[14]
+								- this->elements[13]*this->elements[10]*this->elements[3]
+								- this->elements[14]*this->elements[11]*this->elements[1]
+								- this->elements[15]*this->elements[9]*this->elements[2]);
+
+		cofactor.elements[5] = (this->elements[0]*this->elements[10]*this->elements[15]
+							    + this->elements[2]*this->elements[11]*this->elements[12]
+								+ this->elements[3]*this->elements[8]*this->elements[14]
+								- this->elements[12]*this->elements[10]*this->elements[3]
+								- this->elements[14]*this->elements[11]*this->elements[0]
+								- this->elements[15]*this->elements[8]*this->elements[2]);
+
+		cofactor.elements[6] = -(this->elements[0]*this->elements[9]*this->elements[15]
+							    + this->elements[1]*this->elements[11]*this->elements[12]
+								+ this->elements[3]*this->elements[8]*this->elements[13]
+								- this->elements[12]*this->elements[9]*this->elements[3]
+								- this->elements[13]*this->elements[11]*this->elements[0]
+								- this->elements[15]*this->elements[8]*this->elements[1]);
+
+		cofactor.elements[7] = (this->elements[0]*this->elements[9]*this->elements[14]
+							    + this->elements[1]*this->elements[10]*this->elements[12]
+								+ this->elements[2]*this->elements[8]*this->elements[13]
+								- this->elements[12]*this->elements[9]*this->elements[2]
+								- this->elements[13]*this->elements[10]*this->elements[0]
+								- this->elements[14]*this->elements[8]*this->elements[1]);
+
+		cofactor.elements[8] = (this->elements[1]*this->elements[6]*this->elements[15]
+							    + this->elements[2]*this->elements[7]*this->elements[13]
+								+ this->elements[3]*this->elements[5]*this->elements[14]
+								- this->elements[13]*this->elements[6]*this->elements[3]
+								- this->elements[14]*this->elements[7]*this->elements[1]
+								- this->elements[15]*this->elements[5]*this->elements[2]);
+
+		cofactor.elements[9] = -(this->elements[0]*this->elements[6]*this->elements[15]
+							     + this->elements[2]*this->elements[7]*this->elements[12]
+								 + this->elements[3]*this->elements[4]*this->elements[14]
+								 - this->elements[12]*this->elements[6]*this->elements[3]
+								 - this->elements[14]*this->elements[7]*this->elements[0]
+								 - this->elements[15]*this->elements[4]*this->elements[2]);
+
+		cofactor.elements[10] = (this->elements[0]*this->elements[5]*this->elements[15]
+							     + this->elements[1]*this->elements[7]*this->elements[12]
+								 + this->elements[3]*this->elements[4]*this->elements[13]
+								 - this->elements[12]*this->elements[5]*this->elements[3]
+								 - this->elements[13]*this->elements[7]*this->elements[0]
+								 - this->elements[15]*this->elements[4]*this->elements[1]);
+
+		cofactor.elements[11] = -(this->elements[0]*this->elements[5]*this->elements[14]
+							      + this->elements[1]*this->elements[6]*this->elements[12]
+								  + this->elements[2]*this->elements[4]*this->elements[13]
+								  - this->elements[12]*this->elements[5]*this->elements[2]
+								  - this->elements[13]*this->elements[6]*this->elements[0]
+								  - this->elements[14]*this->elements[4]*this->elements[1]);
+
+		cofactor.elements[12] = -(this->elements[1]*this->elements[6]*this->elements[11]
+							    + this->elements[2]*this->elements[7]*this->elements[9]
+								+ this->elements[3]*this->elements[5]*this->elements[10]
+								- this->elements[9]*this->elements[6]*this->elements[3]
+								- this->elements[10]*this->elements[7]*this->elements[1]
+								- this->elements[11]*this->elements[5]*this->elements[2]);
+
+		cofactor.elements[13] = (this->elements[0]*this->elements[6]*this->elements[11]
+							     + this->elements[2]*this->elements[7]*this->elements[8]
+								 + this->elements[3]*this->elements[4]*this->elements[10]
+								 - this->elements[8]*this->elements[6]*this->elements[3]
+								 - this->elements[10]*this->elements[7]*this->elements[0]
+								 - this->elements[11]*this->elements[4]*this->elements[2]);
+
+		cofactor.elements[14] = -(this->elements[0]*this->elements[5]*this->elements[11]
+							    + this->elements[1]*this->elements[7]*this->elements[8]
+								+ this->elements[3]*this->elements[4]*this->elements[9]
+								- this->elements[8]*this->elements[5]*this->elements[3]
+								- this->elements[9]*this->elements[7]*this->elements[0]
+								- this->elements[11]*this->elements[4]*this->elements[1]);
+
+		cofactor.elements[15] = (this->elements[0]*this->elements[5]*this->elements[10]
+							     + this->elements[1]*this->elements[6]*this->elements[8]
+								 + this->elements[2]*this->elements[4]*this->elements[9]
+								 - this->elements[8]*this->elements[5]*this->elements[2]
+						         - this->elements[9]*this->elements[6]*this->elements[0]
+								 - this->elements[10]*this->elements[4]*this->elements[1]);
+
+		return 1/this->determinant()*cofactor.transpose();
+	}
+
 	mat4 operator*(int scalar, const mat4& matrix) {
+
+		mat4 resulting_matrix = mat4();
+
+		for (int i = 0; i < 16; i++) {
+			resulting_matrix.elements[i] = scalar*matrix.elements[i];
+		}
+
+		return resulting_matrix;
+	}
+
+	mat4 operator*(float scalar, const mat4& matrix) {
 
 		mat4 resulting_matrix = mat4();
 
