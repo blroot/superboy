@@ -52,6 +52,7 @@ namespace math {
 	}
 
 	float mat3::determinant() {
+
 		return(this->elements[0]*this->elements[4]*this->elements[8]
 			   + this->elements[1]*this->elements[5]*this->elements[6]
 			   + this->elements[2]*this->elements[3]*this->elements[7]
@@ -121,6 +122,7 @@ namespace math {
 	}
 
 	mat3 operator*(int scalar, const mat3& matrix) {
+
 		mat3 resulting_matrix = mat3();
 
 		for (int i = 0; i < 9; i++) {
