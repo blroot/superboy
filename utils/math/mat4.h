@@ -5,6 +5,11 @@
  *      Author: blroot
  */
 
+#pragma once
+#include "vec3.h"
+
+const float pi = 3.14159265;
+
 namespace math {
 
 	struct mat4 {
@@ -14,6 +19,11 @@ namespace math {
 		mat4();
 		mat4(float a, float b, float c, float d, float e, float f, float g, float h, float i, float j, float k, float l, float m, float n, float o, float p);
 		mat4(float diagonal);
+
+		mat4 rotate(const float degrees, const vec3& axis);
+		mat4 scale(const float &sx, const float &sy, const float &sz);
+		mat4 translate(const float &tx, const float &ty, const float &tz);
+		mat4 lookAt(const vec3 &eye, const vec3 &center, const vec3 &up);
 
 		mat4 transpose();
 		float determinant();

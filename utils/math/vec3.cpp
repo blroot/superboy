@@ -22,22 +22,22 @@ namespace math {
 		this->z = z;
 	}
 
-	vec3 vec3::cross(vec3 vector) {
+	vec3 vec3::cross(vec3 vector) const {
 		return vec3(this->y*vector.z - this->z*vector.y,
 				    -(this->x*vector.z - this->z*vector.x),
 					this->x*vector.y - this->y*vector.x);
 	}
 
-	float vec3::norm() {
+	float vec3::norm() const {
 		return sqrt(x*x + y*y + z*z);
 	}
 
-	vec3 vec3::normalize() {
+	vec3 vec3::normalize() const {
 		float norm = this->norm();
 		return vec3(this->x/norm, this->y/norm, this->z/norm);
 	}
 
-	float vec3::dot(vec3 vector) {
+	float vec3::dot(vec3 vector) const {
 		return this->x * vector.x + this->y * vector.y + this->z * vector.z;
 	}
 

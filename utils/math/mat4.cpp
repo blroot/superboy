@@ -1,11 +1,13 @@
 /*
  * mat4.cpp
+
  *
  *  Created on: Jul 8, 2017
  *      Author: blroot
  */
 
 #include "mat4.h"
+#include <math.h>
 
 namespace math {
 
@@ -50,6 +52,83 @@ namespace math {
 		elements[13] = h;
 		elements[14] = l;
 		elements[15] = p;
+	}
+
+	mat4 mat4::rotate(const float degrees, const vec3& axis)
+	{
+		mat4 resulting_matrix(1.0f);
+
+		float radians = (pi/180)*degrees;
+		float cosine = cos(radians);
+		float sine = sin(radians);
+		const float one_minus_cosine = 1.0f - cosine;
+
+		const float x = axis.x;
+		const float y = axis.y;
+		const float z = axis.z;
+
+		resulting_matrix.elements[0] = x * x * one_minus_cosine + cosine;
+		resulting_matrix.elements[4] = x * y * one_minus_cosine - z * sine;
+		resulting_matrix.elements[8] = x * z * one_minus_cosine + y * sine;
+
+		resulting_matrix.elements[1] = x * y * one_minus_cosine + z * sine;
+		resulting_matrix.elements[5] = y * y * one_minus_cosine + cosine;
+		resulting_matrix.elements[9] = y * z * one_minus_cosine - x * sine;
+
+		resulting_matrix.elements[2] = x * z * one_minus_cosine - y * sine;
+		resulting_matrix.elements[6] = y * z * one_minus_cosine + x * sine;
+		resulting_matrix.elements[10] = z * z * one_minus_cosine + cosine;
+
+		return resulting_matrix;
+	}
+
+	mat4 mat4::scale(const float &sx, const float &sy, const float &sz)
+	{
+	  mat4 resulting_matrix(1.0f);
+
+	  resulting_matrix.elements[0] = sx;
+	  resulting_matrix.elements[5] = sy;
+	  resulting_matrix.elements[10] = sz;
+
+	  return resulting_matrix;
+	}
+
+	mat4 mat4::translate(const float &tx, const float &ty, const float &tz)
+	{
+	  mat4 resulting_matrix(1.0f);
+
+	  resulting_matrix.elements[12] = tx;
+	  resulting_matrix.elements[13] = ty;
+	  resulting_matrix.elements[14] = tz;
+
+	  return resulting_matrix;
+	}
+
+	mat4 mat4::lookAt(const vec3 &eye, const vec3 &center, const vec3 &up)
+	{
+		mat4 resulting_matrix(1.0f);
+
+		vec3 w = eye.normalize();
+		vec3 u = (up.cross(w)).normalize();
+		vec3 v = w.cross(u);
+
+		resulting_matrix.elements[0] = u.x;
+		resulting_matrix.elements[4] = u.y;
+		resulting_matrix.elements[8] = u.z;
+
+		resulting_matrix.elements[1] = v.x;
+		resulting_matrix.elements[5] = v.y;
+		resulting_matrix.elements[9] = v.z;
+
+		resulting_matrix.elements[2] = w.x;
+		resulting_matrix.elements[6] = w.y;
+		resulting_matrix.elements[10] = w.z;
+
+		resulting_matrix.elements[12] = u.dot(-1*eye);
+		resulting_matrix.elements[13] = v.dot(-1*eye);
+		resulting_matrix.elements[14] = w.dot(-1*eye);
+
+		return resulting_matrix;
 	}
 
 	mat4 mat4::transpose() {

@@ -1,9 +1,12 @@
 /*
+
  * mat3.h
  *
  *  Created on: Jul 5, 2017
  *      Author: blroot
  */
+
+#pragma once
 
 namespace math {
 
