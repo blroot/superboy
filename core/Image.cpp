@@ -6,7 +6,7 @@
  */
 
 #include "Image.h"
-#include "../include/FreeImage.h"
+#include <FreeImage.h>
 
 namespace superboy {
 
