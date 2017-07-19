@@ -6,6 +6,7 @@
  */
 
 #include "Image.h"
+#include <string>
 
 using namespace superboy;
 
@@ -13,7 +14,7 @@ int main(int argc, char **argv) {
 
 	int width = 100;
 	int height = 100;
-	string fname = "BSOD";
+	std::string fname = "BSOD";
 
 	Image image = Image(width, height);
 

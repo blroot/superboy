@@ -15,14 +15,8 @@ namespace superboy {
 		this->width = width;
 		this->height = height;
 
-		// Set color to black (null vec3) by default
-		for (int i = 0; i < this->width; i++) {
-
-			for (int j = 0; j < this->height; j++) {
-
-				this->colormap[i][j] = vec3(0.0f, 0.0f, 0.0f);
-			}
-		}
+		// Initialize vector - set all pixels to black by default
+		this->colormap.resize(this->width, std::vector<vec3>(this->height, vec3()));
 
 	}
 
@@ -49,7 +43,7 @@ namespace superboy {
 		return vec3();
 	}
 
-	void Image::writeImage(string fname) {
+	void Image::writeImage(std::string fname) {
 
 		FreeImage_Initialise();
 
