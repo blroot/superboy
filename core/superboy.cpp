@@ -16,8 +16,8 @@ using namespace superboy;
 
 int main(int argc, char **argv) {
 
-	int width = 100;
-	int height = 100;
+	int width = 640;
+	int height = 640;
 	std::string fname = "BSOD.png";
 
 	Image image = Image(width, height);
@@ -34,11 +34,14 @@ int main(int argc, char **argv) {
 
 			float intersection = sphere.intersect(ray);
 
+			std::cout << "Intersection: " << intersection << std::endl;
+
 			if (intersection > 0) {
 
 				image.setColor(i, j, vec3(255.0f, 0.0f, 0.0f));
-				std::cout << "Intersection: " << intersection << std::endl;
+				std::cout << "Intersection true: " << std::endl;
 			}
+
 		}
 	}
 

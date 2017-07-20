@@ -29,6 +29,10 @@ namespace superboy {
 
 	Ray Camera::RayThruPixel(int pixel_x, int pixel_y, int width, int height) {
 
+		// Shoot from the center of the pixel as requested
+		pixel_x += 0.5;
+		pixel_y += 0.5;
+
 		float alpha = tan(this->fov/2) * (pixel_y - width/2)/width/2;
 		float beta = tan(this->fov/2) * (height/2 - pixel_x)/height/2;
 

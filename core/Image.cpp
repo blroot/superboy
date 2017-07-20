@@ -16,7 +16,7 @@ namespace superboy {
 		this->height = height;
 
 		// Initialize vector - set all pixels to black by default
-		this->colormap.resize(this->width, std::vector<vec3>(this->height, vec3()));
+		this->colormap.resize(this->height, std::vector<vec3>(this->width, vec3()));
 
 	}
 
@@ -26,7 +26,7 @@ namespace superboy {
 
 	void Image::setColor(int x, int y, vec3 color) {
 
-		if (x <= this->width && y <= this->height) {
+		if (x <= this->height && y <= this->width) {
 
 			this->colormap[x][y] = color;
 		}
@@ -34,7 +34,7 @@ namespace superboy {
 
 	vec3 Image::getColor(int x, int y) {
 
-		if (x <= this->width && y <= this->height) {
+		if (x <= this->height && y <= this->width) {
 
 			return this->colormap[x][y];
 		}
@@ -51,9 +51,8 @@ namespace superboy {
 		BYTE pixels[3*pix];
 
 		int pixelsElement = 0;
-		for (int i = this->height-1; i >= 0; i--) {
-
-			for (int j = this->width-1; j >=0; j--) {
+		for (int i = 0; i < this->height; i++) {
+			for (int j = 0; j < this->width; j++) {
 				pixels[pixelsElement] = getColor(i, j).x;
 				pixels[pixelsElement+1] = getColor(i, j).y;
 				pixels[pixelsElement+2] = getColor(i, j).z;
@@ -61,7 +60,7 @@ namespace superboy {
 			}
 		}
 
-		FIBITMAP *img = FreeImage_ConvertFromRawBits(pixels, this->width, this->height, this->width * 3, 24, 0xFF0000, 0x00FF00, 0x0000FF, true);
+		FIBITMAP *img = FreeImage_ConvertFromRawBits(pixels, this->width, this->height, this->width * 3, 24, 0xFF0000, 0x00FF00, 0x0000FF, false);
 
 		FreeImage_Save(FIF_PNG, img, fname.c_str(), 0);
 	}
