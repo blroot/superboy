@@ -1,20 +1,21 @@
 /*
- * sphere.cpp
+ * Ray.cpp
  *
  *  Created on: Jul 19, 2017
  *      Author: blroot
  */
 
-#include "sphere.h"
+#include "Ray.h"
 
 namespace superboy {
 
-	sphere::sphere() {
-		this->center = 0.0f;
-		this->radius = 1.0f;
+	Ray::Ray(vec3 eye, vec3 direction) {
+
+		this->eye = eye;
+		this->direction = direction;
 	}
 
-	sphere::~sphere() {
+	Ray::~Ray() {
 		// TODO Auto-generated destructor stub
 	}
 
