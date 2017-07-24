@@ -7,17 +7,17 @@
 
 #pragma once
 
-#include "../primitives/Sphere.h"
+#include "../object/Object.h"
 
 namespace superboy {
 
 class IntersectionInfo {
 	public:
 		float minimum_distance;
-		const Sphere* hitobject;
+		const Object* hitobject;
 
 		IntersectionInfo();
-		IntersectionInfo(float minimum_distance, const Sphere &hitobject);
+		IntersectionInfo(float minimum_distance, const Object &hitobject);
 		virtual ~IntersectionInfo();
 	};
 

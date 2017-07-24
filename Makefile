@@ -9,8 +9,8 @@ RM = /bin/rm -f
 all:superboy
 tests:tests
 
-superboy: build/vec3.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o
-	$(CC) $(CFLAGS) -o superboy build/vec3.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o $(INCFLAGS) $(LDFLAGS)
+superboy: build/vec3.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o
+	$(CC) $(CFLAGS) -o superboy build/vec3.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o $(INCFLAGS) $(LDFLAGS)
 tests: build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread
 	$(CC) $(CFLAGS) -o tests build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread $(INCFLAGS) $(LDFLAGS)
 build/mat3.o: utils/math/mat3.h 
@@ -31,6 +31,8 @@ build/Scene.o: core/scene/Scene.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/scene/Scene.cpp -o build/Scene.o
 build/IntersectionInfo.o: core/scene/IntersectionInfo.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/scene/IntersectionInfo.cpp -o build/IntersectionInfo.o
+build/Object.o: core/object/Object.h
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/object/Object.cpp -o build/Object.o
 build/superboy.o:
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/superboy.cpp -o build/superboy.o
 clean: 

@@ -6,12 +6,13 @@
  */
 
 #include "../camera/Ray.h"
+#include "../object/Object.h"
 
 #pragma once
 
 namespace superboy {
 
-	class Sphere {
+	class Sphere : public Object {
 		public:
 			vec3 center;
 			float radius;

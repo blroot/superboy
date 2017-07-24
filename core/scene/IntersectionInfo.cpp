@@ -9,7 +9,7 @@
 
 namespace superboy {
 
-	IntersectionInfo::IntersectionInfo(float minimum_distance, const Sphere& hitobject) {
+	IntersectionInfo::IntersectionInfo(float minimum_distance, const Object& hitobject) {
 
 		this->minimum_distance = minimum_distance;
 		this->hitobject = &hitobject;

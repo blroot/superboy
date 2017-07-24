@@ -18,25 +18,25 @@ namespace superboy {
 		// TODO Auto-generated destructor stub
 	}
 
-	void Scene::addSphere(Sphere sphere) {
+	void Scene::addObject(Object& object) {
 
-		this->spheres.push_back(sphere);
+		this->objects.push_back(&object);
 	}
 
 	IntersectionInfo Scene::intersect(Ray ray) {
 
 		float minimum_distance = 90.0f;
-		Sphere *hitobject = 0;
+		Object *hitobject = 0;
 
-		for (int i = 0; i < this->spheres.size(); i++) {
+		for (int i = 0; i < this->objects.size(); i++) {
 
-			float t = this->spheres[i].intersect(ray);
+			float t = this->objects[i]->intersect(ray);
 
 			if (t > 0.0f and t < minimum_distance) {
 
 				std::cout << "Intersection with sphere " << i << "-> t is : " << t << std::endl;
 				minimum_distance = t;
-				hitobject = &this->spheres[i];
+				hitobject = this->objects[i];
 				std::cout << "asdadas" << std::endl;
 			}
 		}

@@ -9,6 +9,7 @@
 #include "camera/Ray.h"
 #include "camera/Camera.h"
 #include "primitives/Sphere.h"
+#include "object/Object.h"
 #include "scene/Scene.h"
 #include <string>
 #include <iostream>
@@ -33,8 +34,8 @@ int main(int argc, char **argv) {
 
 	// Add spheres to Scene instance
 	Scene scene = Scene();
-	scene.addSphere(sphere0);
-	scene.addSphere(sphere1);
+	scene.addObject(sphere0);
+	scene.addObject(sphere1);
 
 	IntersectionInfo intersection;
 
