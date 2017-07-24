@@ -14,12 +14,12 @@ namespace superboy {
 
 	class Sphere : public Object {
 		public:
-			vec3 center;
-			float radius;
-
 			Sphere(vec3 center, float radius);
 			virtual ~Sphere();
 			float intersect(Ray ray);
+		private:
+			vec3 center;
+			float radius;
 	};
 
 } /* namespace superboy */

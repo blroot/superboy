@@ -9,6 +9,7 @@
 #include "camera/Ray.h"
 #include "camera/Camera.h"
 #include "primitives/Sphere.h"
+#include "primitives/Triangle.h"
 #include "object/Object.h"
 #include "scene/Scene.h"
 #include <string>
@@ -26,16 +27,21 @@ int main(int argc, char **argv) {
 	Image image = Image(width, height);
 
 	// Create a camera
-	Camera camera = Camera(vec3(0.0f, 0.0f, 10.0f), vec3(), vec3(0.0f, 0.1f, 0.0f), 45.0f);
+	Camera camera = Camera(vec3(0.0f, 0.0f, 10.0f), vec3(), vec3(0.0f, 1.0f, 0.0f), 45.0f);
 
 	// Create two spheres
-	Sphere sphere0 = Sphere(vec3(0.0f, 1.0f, 0.0f), 0.1f);
-	Sphere sphere1 = Sphere(vec3(0.0f, 0.0f, 0.0f), 0.3f);
+	Sphere sphere0 = Sphere(vec3(-1.0f, 0.0f, 0.0f), 0.1f);
+	Sphere sphere1 = Sphere(vec3(0.0f, 0.0f, 0.0f), 0.03f);
+	Sphere sphere2 = Sphere(vec3(1.0f, 0.0f, 0.0f), 0.2f);
+	Triangle triangle0 = Triangle(vec3(), vec3(0.0f, 0.3f, 0.0f), vec3(0.5f, 0.0f, 0.0f));
 
 	// Add spheres to Scene instance
 	Scene scene = Scene();
 	scene.addObject(sphere0);
 	scene.addObject(sphere1);
+	scene.addObject(sphere2);
+	scene.addObject(triangle0);
+
 
 	IntersectionInfo intersection;
 

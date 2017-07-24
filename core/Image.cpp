@@ -60,7 +60,7 @@ namespace superboy {
 			}
 		}
 
-		FIBITMAP *img = FreeImage_ConvertFromRawBits(pixels, this->width, this->height, this->width * 3, 24, 0xFF0000, 0x00FF00, 0x0000FF, false);
+		FIBITMAP *img = FreeImage_ConvertFromRawBits(pixels, this->width, this->height, this->width * 3, 24, 0xFF0000, 0x00FF00, 0x0000FF, true);
 
 		FreeImage_Save(FIF_PNG, img, fname.c_str(), 0);
 	}
