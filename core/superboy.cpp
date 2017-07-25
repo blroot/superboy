@@ -20,14 +20,14 @@ using namespace superboy;
 int main(int argc, char **argv) {
 
 	int width = 640;
-	int height = 640;
+	int height = 480;
 	std::string fname = "BSOD.png";
 
 	// Create image
 	Image image = Image(width, height);
 
 	// Create a camera
-	Camera camera = Camera(vec3(0.0f, 0.0f, 10.0f), vec3(), vec3(0.0f, 1.0f, 0.0f), 45.0f);
+	Camera camera = Camera(vec3(0.0f, 0.0f, 5.0f), vec3(), vec3(0.0f, 1.0f, 0.0f), 45.0f);
 
 	// Create two spheres
 	Sphere sphere0 = Sphere(vec3(-1.0f, 0.0f, 0.0f), 0.1f);
@@ -60,6 +60,8 @@ int main(int argc, char **argv) {
 
 				image.setColor(i, j, vec3(255.0f, 0.0f, 0.0f));
 				std::cout << "Intersection true: " << std::endl;
+			} else {
+				image.setColor(i, j, vec3(255.0f, 255.0f, 255.0f));
 			}
 
 		}

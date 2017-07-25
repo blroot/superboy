@@ -9,6 +9,8 @@
 #include <math.h>
 #include <iostream>
 
+const float pi = 3.14159265;
+
 namespace superboy {
 
 	Camera::Camera(vec3 eye, vec3 center, vec3 up, float fov) {
@@ -24,23 +26,23 @@ namespace superboy {
 		this->u = (b.cross(w)).normalize();
 		this->v = w.cross(u);
 
-		this->fov = fov;
+		this->fov = (pi/180)*fov;
 	}
 
-	Ray Camera::RayThruPixel(int pixel_x, int pixel_y, int width, int height) {
+	Ray Camera::RayThruPixel(int pixel_y, int pixel_x, int width, int height) {
 
 		// Shoot from the center of the pixel as requested
 		pixel_x += 0.5;
 		pixel_y += 0.5;
 
-		float alpha = tan(this->fov/2) * (pixel_y - width/2)/width/2;
-		float beta = tan(this->fov/2) * (height/2 - pixel_x)/height/2;
+		float aspect = (float)width/(float)height;
 
-		std::cout << "Alpha: " << alpha << "Beta: " << beta << std::endl;
+		float alpha = aspect * tan(this->fov/2) * (pixel_x - (width/2))/(width/2);
+		float beta = tan(this->fov/2) * ((height/2) - pixel_y)/(height/2);
 
 		vec3 direction = alpha*this->u + beta*this->v - this->w;
 
-		return Ray(this->eye, direction);
+		return Ray(this->eye, direction.normalize());
 	}
 
 	Camera::~Camera() {
