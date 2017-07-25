@@ -1,2 +1,2 @@
 # superboy
-An offline ray tracing implementation
+An non-realtime ray tracing implementation
