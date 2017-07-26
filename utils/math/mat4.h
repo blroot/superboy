@@ -6,6 +6,7 @@
  */
 
 #pragma once
+
 #include "vec3.h"
 
 const float pi = 3.14159265;
@@ -33,6 +34,7 @@ namespace math {
 		mat4 operator*(float scalar);
 		friend mat4 operator*(float scalar, const mat4& matrix);
 		friend mat4 operator*(int scalar, const mat4& matrix);
+		vec3 operator*(const vec3& vector);
 		mat4& operator=(mat4 matrix);
 		bool operator==(mat4 matrix);
 	};

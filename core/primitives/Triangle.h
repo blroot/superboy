@@ -5,9 +5,9 @@
  *      Author: blroot
  */
 
-#include "../object/Object.h"
-
 #pragma once
+
+#include "../object/Object.h"
 
 namespace superboy {
 

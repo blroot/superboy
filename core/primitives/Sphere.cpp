@@ -49,6 +49,11 @@ namespace superboy {
 		return intersection;
 	}
 
+	vec3 Sphere::getCenter() {
+
+		return center;
+	}
+
 	Sphere::~Sphere() {
 		// TODO Auto-generated destructor stub
 	}

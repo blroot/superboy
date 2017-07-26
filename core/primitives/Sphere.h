@@ -5,10 +5,13 @@
  *      Author: blroot
  */
 
+#pragma once
+
 #include "../camera/Ray.h"
 #include "../object/Object.h"
+#include "../../utils/math/vec3.h"
 
-#pragma once
+using namespace math;
 
 namespace superboy {
 
@@ -17,6 +20,7 @@ namespace superboy {
 			Sphere(vec3 center, float radius);
 			virtual ~Sphere();
 			float intersect(Ray ray);
+			vec3 getCenter();
 		private:
 			vec3 center;
 			float radius;

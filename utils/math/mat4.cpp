@@ -331,6 +331,13 @@ namespace math {
 		return resulting_matrix;
 	}
 
+	vec3 mat4::operator*(const vec3& vector) {
+
+		return vec3(this->elements[0]*vector.x + this->elements[4]*vector.y + this->elements[8]*vector.z,
+				this->elements[1]*vector.x + this->elements[5]*vector.y + this->elements[9]*vector.z,
+				this->elements[2]*vector.x + this->elements[6]*vector.y + this->elements[10]*vector.z);
+	}
+
 	mat4& mat4::operator=(mat4 matrix) {
 
 		for (int i = 0; i < 16; i++)  {

@@ -7,6 +7,7 @@
 
 #include "Scene.h"
 #include <iostream>
+#include <math.h>
 
 namespace superboy {
 
@@ -25,7 +26,7 @@ namespace superboy {
 
 	IntersectionInfo Scene::intersect(Ray ray) {
 
-		float minimum_distance = 90.0f;
+		float minimum_distance = INFINITY;
 		Object *hitobject = 0;
 
 		for (int i = 0; i < this->objects.size(); i++) {
@@ -34,10 +35,9 @@ namespace superboy {
 
 			if (t > 0.0f and t < minimum_distance) {
 
-				std::cout << "Intersection with sphere " << i << "-> t is : " << t << std::endl;
+				//std::cout << "Intersection with object " << i << "-> t is : " << t << std::endl;
 				minimum_distance = t;
 				hitobject = this->objects[i];
-				std::cout << "asdadas" << std::endl;
 			}
 		}
 
