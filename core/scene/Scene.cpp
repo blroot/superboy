@@ -24,6 +24,11 @@ namespace superboy {
 		this->objects.push_back(&object);
 	}
 
+	void Scene::addLight(Light& light) {
+
+		this->lights.push_back(&light);
+	}
+
 	IntersectionInfo Scene::intersect(Ray ray) {
 
 		float minimum_distance = INFINITY;

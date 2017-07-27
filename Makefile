@@ -9,8 +9,8 @@ RM = /bin/rm -f
 all:superboy
 tests:tests
 
-superboy: build/vec3.o build/mat4.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o
-	$(CC) $(CFLAGS) -o superboy build/vec3.o build/mat4.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o $(INCFLAGS) $(LDFLAGS)
+superboy: build/vec3.o build/mat4.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Materials.o build/Shader.o
+	$(CC) $(CFLAGS) -o superboy build/vec3.o build/mat4.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Materials.o build/Shader.o $(INCFLAGS) $(LDFLAGS)
 tests: build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread
 	$(CC) $(CFLAGS) -o tests build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread $(INCFLAGS) $(LDFLAGS)
 build/mat3.o: utils/math/mat3.h 
@@ -35,6 +35,14 @@ build/IntersectionInfo.o: core/scene/IntersectionInfo.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/scene/IntersectionInfo.cpp -o build/IntersectionInfo.o
 build/Object.o: core/object/Object.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/object/Object.cpp -o build/Object.o
+build/Materials.o: core/object/materials/Materials.h
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/object/materials/Materials.cpp -o build/Materials.o
+build/Light.o: core/light/Light.h
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/light/Light.cpp -o build/Light.o
+build/Directional.o: core/light/Directional.h
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/light/Directional.cpp -o build/Directional.o
+build/Shader.o: core/shading/Shader.h
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/shading/Shader.cpp -o build/Shader.o
 build/superboy.o:
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/superboy.cpp -o build/superboy.o
 clean: 

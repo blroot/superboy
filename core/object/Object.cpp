@@ -10,8 +10,8 @@
 namespace superboy {
 
 	Object::Object() {
-		// TODO Auto-generated constructor stub
 
+		this->materials = Materials();
 	}
 
 	Object::~Object() {

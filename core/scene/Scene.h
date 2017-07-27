@@ -11,6 +11,7 @@
 #include "../camera/Ray.h"
 #include "IntersectionInfo.h"
 #include "../object/Object.h"
+#include "../light/Light.h"
 #include <vector>
 
 namespace superboy {
@@ -18,9 +19,11 @@ namespace superboy {
 class Scene {
 	public:
 		std::vector<Object*> objects;
+		std::vector<Light*> lights;
 
 		Scene();
 		void addObject(Object &object);
+		void addLight(Light &light);
 		IntersectionInfo intersect(Ray ray);
 		virtual ~Scene();
 };

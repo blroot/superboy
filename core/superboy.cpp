@@ -10,8 +10,10 @@
 #include "camera/Camera.h"
 #include "primitives/Sphere.h"
 #include "primitives/Triangle.h"
+#include "light/Directional.h"
 #include "object/Object.h"
 #include "scene/Scene.h"
+#include "shading/Shader.h"
 #include "../utils/math/mat4.h"
 #include <string>
 #include <iostream>
@@ -31,23 +33,14 @@ int main(int argc, char **argv) {
 	// Create a camera
 	Camera camera = Camera(vec3(0.0f, 0.0f, 5.0f), vec3(), vec3(0.0f, 1.0f, 0.0f), 45.0f);
 
+	// Create a directional light
+	Directional directional = Directional(vec3(0.0f, 0.0f, 5.0f), vec3(255.0f, 255.0f, 255.0f));
+
 	// Create two spheres
 	Sphere sphere0 = Sphere(vec3(-1.0f, 0.0f, 0.0f), 0.1f);
 	Sphere sphere1 = Sphere(vec3(0.0f, 0.0f, 0.0f), 0.03f);
 	Sphere sphere2 = Sphere(vec3(1.0f, 0.0f, 0.0f), 0.2f);
 	Triangle triangle0 = Triangle(vec3(), vec3(0.0f, 0.3f, 0.0f), vec3(0.5f, 0.0f, 0.0f));
-
-	// Scale triangle
-	float sx = 2.0f;
-	float sy = 3.0f;
-	float sz = 4.0f;
-
-	mat4 scalematrix;
-	scalematrix = scalematrix.scale(2.0f, 3.0f, 4.0f);
-
-	vec3 scale = scalematrix * sphere0.getCenter();
-
-	std::cout << "x: " << scale.x << "y: " << scale.y << "z: " << scale.z << std::endl;
 
 	// Add spheres to Scene instance
 	Scene scene = Scene();
@@ -56,8 +49,12 @@ int main(int argc, char **argv) {
 	scene.addObject(sphere2);
 	scene.addObject(triangle0);
 
+	// Add light to scene
+	scene.addLight(directional);
+
 
 	IntersectionInfo intersection;
+	Shader shader(&scene);
 
 
 	for (int i = 0; i < height; i++) {
@@ -70,13 +67,7 @@ int main(int argc, char **argv) {
 
 			intersection = scene.intersect(ray);
 
-			if (intersection.hitobject != 0) {
-
-				image.setColor(i, j, vec3(255.0f, 0.0f, 0.0f));
-				//std::cout << "Intersection true: " << std::endl;
-			} else {
-				image.setColor(i, j, vec3(255.0f, 255.0f, 255.0f));
-			}
+			image.setColor(i, j, shader.computeColor(intersection));
 
 		}
 	}

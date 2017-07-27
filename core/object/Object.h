@@ -6,6 +6,7 @@
  */
 
 #include "../camera/Ray.h"
+#include "materials/Materials.h"
 
 #pragma once
 
@@ -17,6 +18,8 @@ namespace superboy {
 			virtual ~Object();
 
 			virtual float intersect(Ray ray);
+		private:
+			Materials materials;
 	};
 
 } /* namespace superboy */
