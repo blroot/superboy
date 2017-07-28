@@ -14,6 +14,7 @@ namespace superboy {
 
 		this->center = center;
 		this->radius = radius;
+		this->materials = Materials();
 	}
 
 	float Sphere::intersect(Ray ray) {
@@ -47,6 +48,11 @@ namespace superboy {
 		}
 
 		return intersection;
+	}
+
+	vec3 Sphere::getNormal(Ray& ray, float& point) {
+
+		return vec3(((ray.eye + ray.direction*point)-this->center).normalize());
 	}
 
 	vec3 Sphere::getCenter() {

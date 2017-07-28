@@ -14,6 +14,8 @@ namespace superboy {
 		this->A = A;
 		this->B = B;
 		this->C = C;
+		this->materials = Materials();
+		this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
 	}
 
 	Triangle::~Triangle() {
@@ -25,9 +27,7 @@ namespace superboy {
 		float intersection = 0.0f;
 
 		// Construct plane from A,B,C
-		vec3 normal = (this->C-this->A).cross(this->B-this->A).normalize();
-
-		float t = (this->A.dot(normal)-ray.eye.dot(normal))/ray.direction.dot(normal);
+		float t = (this->A.dot(this->normal)-ray.eye.dot(this->normal))/ray.direction.dot(this->normal);
 
 		// Compute dot products
 		vec3 P = ray.eye + ray.direction*t;
@@ -50,6 +50,11 @@ namespace superboy {
 		}
 
 		return intersection;
+	}
+
+	vec3 Triangle::getNormal(Ray &ray, float &point) {
+
+		return this->normal.normalize();
 	}
 
 } /* namespace superboy */

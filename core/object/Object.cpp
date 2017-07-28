@@ -18,9 +18,9 @@ namespace superboy {
 		// TODO Auto-generated destructor stub
 	}
 
-	float Object::intersect(Ray ray) {
+	Materials& Object::getMaterials() {
 
-		return 0.0f;
+		return this->materials;
 	}
 
 }

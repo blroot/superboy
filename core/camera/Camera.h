@@ -26,6 +26,7 @@ namespace superboy {
 
 			float fov;
 
+			Camera();
 			Camera(vec3 eye, vec3 center, vec3 up, float fov);
 			virtual ~Camera();
 			Ray RayThruPixel(int pixel_x, int pixel_y, int width, int height);

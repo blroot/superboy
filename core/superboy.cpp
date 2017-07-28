@@ -15,6 +15,7 @@
 #include "scene/Scene.h"
 #include "shading/Shader.h"
 #include "../utils/math/mat4.h"
+#include "color/color.h"
 #include <string>
 #include <iostream>
 
@@ -34,19 +35,31 @@ int main(int argc, char **argv) {
 	Camera camera = Camera(vec3(0.0f, 0.0f, 5.0f), vec3(), vec3(0.0f, 1.0f, 0.0f), 45.0f);
 
 	// Create a directional light
-	Directional directional = Directional(vec3(0.0f, 0.0f, 5.0f), vec3(255.0f, 255.0f, 255.0f));
+	Directional directional = Directional(vec3(0.0f, -3.0f, 3.0f), color(100.0f, 100.0f, 100.0f));
 
 	// Create two spheres
-	Sphere sphere0 = Sphere(vec3(-1.0f, 0.0f, 0.0f), 0.1f);
-	Sphere sphere1 = Sphere(vec3(0.0f, 0.0f, 0.0f), 0.03f);
-	Sphere sphere2 = Sphere(vec3(1.0f, 0.0f, 0.0f), 0.2f);
-	Triangle triangle0 = Triangle(vec3(), vec3(0.0f, 0.3f, 0.0f), vec3(0.5f, 0.0f, 0.0f));
+	Sphere sphere0 = Sphere(vec3(-1.0f, 0.0f, 0.0f), 1.0f);
+	//Sphere sphere1 = Sphere(vec3(0.0f, 0.0f, 0.0f), 0.03f);
+	//Sphere sphere2 = Sphere(vec3(1.0f, 0.0f, 0.0f), 0.2f);
+	Triangle triangle0 = Triangle(vec3(-2.0f, 0.0f, -2.0f), vec3(0.0f, 2.0f, 0.0f), vec3(2.0f, 0.0f, 0.0f));
 
-	// Add spheres to Scene instance
+	// Set objects materials
+	sphere0.getMaterials().setDiffuse(color(0.2f, 0.2f, 0.2f));
+	sphere0.getMaterials().setEmission(color(1.0f, 1.0f, 1.0f));
+	sphere0.getMaterials().setShininess(100.0f);
+	sphere0.getMaterials().setSpecular(color(1.0f, 1.0f, 1.0f));
+
+	triangle0.getMaterials().setDiffuse(color(1.0f, 1.0f, 0.0f));
+	triangle0.getMaterials().setEmission(color(0.0f, 0.0f, 0.0f));
+	triangle0.getMaterials().setShininess(40.0f);
+	triangle0.getMaterials().setSpecular(color(1.0f, 1.0f, 1.0f));
+
+	// Add objects and camera to Scene instance
 	Scene scene = Scene();
+	scene.setCamera(camera);
 	scene.addObject(sphere0);
-	scene.addObject(sphere1);
-	scene.addObject(sphere2);
+	//scene.addObject(sphere1);
+	//scene.addObject(sphere2);
 	scene.addObject(triangle0);
 
 	// Add light to scene
@@ -54,7 +67,7 @@ int main(int argc, char **argv) {
 
 
 	IntersectionInfo intersection;
-	Shader shader(&scene);
+	Shader shader(scene);
 
 
 	for (int i = 0; i < height; i++) {

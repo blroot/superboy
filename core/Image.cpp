@@ -16,7 +16,7 @@ namespace superboy {
 		this->height = height;
 
 		// Initialize vector - set all pixels to black by default
-		this->colormap.resize(this->height, std::vector<vec3>(this->width, vec3()));
+		this->colormap.resize(this->height, std::vector<color>(this->width, color()));
 
 	}
 
@@ -24,15 +24,15 @@ namespace superboy {
 		// TODO Auto-generated destructor stub
 	}
 
-	void Image::setColor(int x, int y, vec3 color) {
+	void Image::setColor(int x, int y, color colorvec) {
 
 		if (x <= this->height && y <= this->width) {
 
-			this->colormap[x][y] = color;
+			this->colormap[x][y] = colorvec;
 		}
 	}
 
-	vec3 Image::getColor(int x, int y) {
+	color Image::getColor(int x, int y) {
 
 		if (x <= this->height && y <= this->width) {
 
@@ -40,7 +40,7 @@ namespace superboy {
 		}
 
 		// Return black if out of bounds
-		return vec3();
+		return color();
 	}
 
 	void Image::writeImage(std::string fname) {

@@ -9,6 +9,7 @@
 
 #include "Light.h"
 #include "../../utils/math/vec3.h"
+#include "../color/color.h"
 
 using namespace math;
 
@@ -16,13 +17,13 @@ namespace superboy {
 
 	class Directional : public Light {
 		public:
-			Directional(vec3 direction, vec3 color);
+			Directional(vec3 direction, color colorvec);
 			virtual ~Directional();
 			vec3& getDirection();
-			vec3& getColor();
+			color& getColor();
 		private:
 			vec3 direction;
-			vec3 color;
+			color colorvec;
 	};
 
 } /* namespace superboy */

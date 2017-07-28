@@ -8,6 +8,7 @@
 #pragma once
 
 #include "../../utils/math/vec3.h"
+#include "../color/color.h"
 
 using namespace math;
 
@@ -18,6 +19,7 @@ class Light {
 		Light();
 		virtual ~Light();
 		virtual vec3& getDirection() =0;
+		virtual color& getColor() =0;
 	};
 
 } /* namespace superboy */

@@ -49,6 +49,14 @@ namespace math {
 		return vec3(this->x + right.x, this->y + right.y, this->z + right.z);
 	}
 
+	vec3& vec3::operator+=(vec3 right) {
+		this->x = this->x + right.x;
+		this->y = this->y + right.y;
+		this->z = this->z + right.z;
+
+		return *this;
+	}
+
 	vec3 vec3::operator-(vec3 right) {
 		return vec3(this->x - right.x, this->y - right.y, this->z - right.z);
 	}

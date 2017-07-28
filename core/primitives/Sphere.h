@@ -20,6 +20,7 @@ namespace superboy {
 			Sphere(vec3 center, float radius);
 			virtual ~Sphere();
 			float intersect(Ray ray);
+			vec3 getNormal(Ray& ray, float& point);
 			vec3 getCenter();
 		private:
 			vec3 center;

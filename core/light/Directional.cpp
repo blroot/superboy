@@ -9,10 +9,10 @@
 
 namespace superboy {
 
-	Directional::Directional(vec3 direction, vec3 color) {
+	Directional::Directional(vec3 direction, color colorvec) {
 
 		this->direction = direction;
-		this->color = color;
+		this->colorvec = colorvec;
 	}
 
 	vec3& Directional::getDirection() {
@@ -20,9 +20,9 @@ namespace superboy {
 		return this->direction;
 	}
 
-	vec3& Directional::getColor() {
+	color& Directional::getColor() {
 
-		return this->color;
+		return this->colorvec;
 	}
 
 	Directional::~Directional() {

@@ -11,48 +11,48 @@ namespace superboy {
 
 	Materials::Materials() {
 
-		this->diffuse = vec3();
-		this->emission = vec3();
-		this->shininess = vec3();
-		this->specular = vec3();
+		this->diffuse = color();
+		this->emission = color();
+		this->shininess = 0.0f;
+		this->specular = color();
 	}
 
-	void Materials::setDiffuse(vec3 diffuse) {
+	void Materials::setDiffuse(color diffuse) {
 
 		this->diffuse = diffuse;
 	}
 
-	void Materials::setSpecular(vec3 specular) {
+	void Materials::setSpecular(color specular) {
 
 		this->specular = specular;
 	}
 
-	void Materials::setShininess(vec3 shininess) {
+	void Materials::setShininess(float shininess) {
 
 		this->shininess = shininess;
 	}
 
-	void Materials::setEmission(vec3 emission) {
+	void Materials::setEmission(color emission) {
 
 		 this->emission = emission;
 	}
 
-	vec3& Materials::getDiffuse() {
+	color& Materials::getDiffuse() {
 
 		return this->diffuse;
 	}
 
-	vec3& Materials::getSpecular() {
+	color& Materials::getSpecular() {
 
 		return this->specular;
 	}
 
-	vec3& Materials::getShininess() {
+	float& Materials::getShininess() {
 
 		return this->shininess;
 	}
 
-	vec3& Materials::getEmission() {
+	color& Materials::getEmission() {
 
 		return this->emission;
 	}

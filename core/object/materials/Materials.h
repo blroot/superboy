@@ -7,9 +7,7 @@
 
 #pragma once
 
-#include "../../../utils/math/vec3.h"
-
-using namespace math;
+#include "../../color/color.h"
 
 namespace superboy {
 
@@ -17,19 +15,19 @@ namespace superboy {
 		public:
 			Materials();
 			virtual ~Materials();
-			void setDiffuse(vec3 diffuse);
-			void setSpecular(vec3 specular);
-			void setShininess(vec3 shininess);
-			void setEmission(vec3 emission);
-			vec3& getDiffuse();
-			vec3& getSpecular();
-			vec3& getShininess();
-			vec3& getEmission();
+			void setDiffuse(color diffuse);
+			void setSpecular(color specular);
+			void setShininess(float shininess);
+			void setEmission(color emission);
+			color& getDiffuse();
+			color& getSpecular();
+			float& getShininess();
+			color& getEmission();
 		private:
-			vec3 diffuse;
-			vec3 specular;
-			vec3 shininess;
-			vec3 emission;
+			color diffuse;
+			color specular;
+			float shininess;
+			color emission;
 	};
 
 } /* namespace superboy */

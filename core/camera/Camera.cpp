@@ -13,6 +13,10 @@ const float pi = 3.14159265;
 
 namespace superboy {
 
+	Camera::Camera() {
+		this->fov = 0.0f;
+	}
+
 	Camera::Camera(vec3 eye, vec3 center, vec3 up, float fov) {
 
 		this->eye = eye;

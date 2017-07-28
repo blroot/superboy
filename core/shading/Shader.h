@@ -7,19 +7,19 @@
 
 #pragma once
 
-#include "../../utils/math/vec3.h"
 #include "../scene/IntersectionInfo.h"
 #include "../scene/Scene.h"
-
-using namespace math;
+#include "../color/color.h"
 
 namespace superboy {
 
 	class Shader {
 		public:
-			Shader();
-			vec3 computeColor(IntersectionInfo& intersection, Scene& scene);
+			Shader(Scene &scene);
+			color computeColor(IntersectionInfo& intersection);
 			virtual ~Shader();
+		private:
+			Scene* scene;
 	};
 
 } /* namespace superboy */

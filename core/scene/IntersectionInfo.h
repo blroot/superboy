@@ -13,12 +13,16 @@ namespace superboy {
 
 class IntersectionInfo {
 	public:
-		float minimum_distance;
-		const Object* hitobject;
-
 		IntersectionInfo();
-		IntersectionInfo(float minimum_distance, const Object &hitobject);
+		IntersectionInfo(float minimum_distance, vec3 normal, Object &hitobject);
+		Object* getHitObject();
+		float& getMinimumDistance();
+		vec3& getNormal();
 		virtual ~IntersectionInfo();
+	private:
+		float minimum_distance;
+		vec3 normal;
+		Object* hitobject;
 	};
 
 } /* namespace superboy */

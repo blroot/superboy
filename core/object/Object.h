@@ -17,8 +17,10 @@ namespace superboy {
 			Object();
 			virtual ~Object();
 
-			virtual float intersect(Ray ray);
-		private:
+			virtual float intersect(Ray ray) =0;
+			virtual vec3 getNormal(Ray& ray, float& point) =0;
+			Materials& getMaterials();
+		protected:
 			Materials materials;
 	};
 
