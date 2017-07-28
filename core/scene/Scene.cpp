@@ -52,12 +52,14 @@ namespace superboy {
 		}
 
 		vec3 normal = vec3();
+		vec3 point = vec3();
 
 		if (hitobject != NULL) {
 			normal = hitobject->getNormal(ray, minimum_distance);
+			point = ray.getPoint(minimum_distance);
 		}
 
-		return IntersectionInfo(minimum_distance, normal , *hitobject);
+		return IntersectionInfo(minimum_distance, normal, point, *hitobject);
 	}
 
 	std::vector<Object*>& Scene::getObjects() {

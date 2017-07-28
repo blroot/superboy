@@ -14,14 +14,16 @@ namespace superboy {
 class IntersectionInfo {
 	public:
 		IntersectionInfo();
-		IntersectionInfo(float minimum_distance, vec3 normal, Object &hitobject);
+		IntersectionInfo(float minimum_distance, vec3 normal, vec3 point, Object &hitobject);
 		Object* getHitObject();
 		float& getMinimumDistance();
 		vec3& getNormal();
+		vec3& getPoint();
 		virtual ~IntersectionInfo();
 	private:
 		float minimum_distance;
 		vec3 normal;
+		vec3 point;
 		Object* hitobject;
 	};
 

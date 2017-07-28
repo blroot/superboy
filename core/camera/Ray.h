@@ -19,6 +19,7 @@ namespace superboy {
 			vec3 direction;
 
 			Ray(vec3 eye, vec3 direction);
+			vec3 getPoint(float& lambda);
 			virtual ~Ray();
 	};
 

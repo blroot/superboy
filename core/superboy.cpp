@@ -35,35 +35,42 @@ int main(int argc, char **argv) {
 	Camera camera = Camera(vec3(0.0f, 0.0f, 5.0f), vec3(), vec3(0.0f, 1.0f, 0.0f), 45.0f);
 
 	// Create a directional light
-	Directional directional = Directional(vec3(0.0f, -3.0f, 3.0f), color(100.0f, 100.0f, 100.0f));
+	Directional directional0 = Directional(vec3(-2.0f, -3.0f, 2.0f), color(0.0f, 0.5f, 0.0f));
+	Directional directional1 = Directional(vec3(2.0f, -3.0f, 2.0f), color(0.0f, 0.1f, 0.0f));
 
 	// Create two spheres
 	Sphere sphere0 = Sphere(vec3(-1.0f, 0.0f, 0.0f), 1.0f);
-	//Sphere sphere1 = Sphere(vec3(0.0f, 0.0f, 0.0f), 0.03f);
+	Sphere sphere1 = Sphere(vec3(-0.82f, -1.0f, 1.0f), 0.3f);
 	//Sphere sphere2 = Sphere(vec3(1.0f, 0.0f, 0.0f), 0.2f);
-	Triangle triangle0 = Triangle(vec3(-2.0f, 0.0f, -2.0f), vec3(0.0f, 2.0f, 0.0f), vec3(2.0f, 0.0f, 0.0f));
+	Triangle triangle0 = Triangle(vec3(-5.0f, -5.0f, 0.0f), vec3(0.0f, 5.0f, 0.0f), vec3(5.0f, -5.0f, 0.0f));
 
 	// Set objects materials
-	sphere0.getMaterials().setDiffuse(color(0.2f, 0.2f, 0.2f));
-	sphere0.getMaterials().setEmission(color(1.0f, 1.0f, 1.0f));
+	sphere0.getMaterials().setDiffuse(color(0.4f, 0.4f, 0.4f));
+	sphere0.getMaterials().setEmission(color(0.0f, 0.0f, 0.0f));
 	sphere0.getMaterials().setShininess(100.0f);
-	sphere0.getMaterials().setSpecular(color(1.0f, 1.0f, 1.0f));
+	sphere0.getMaterials().setSpecular(color(0.4f, 0.4f, 0.4f));
+
+	sphere1.getMaterials().setDiffuse(color(0.6f, 0.6f, 0.4f));
+	sphere1.getMaterials().setEmission(color(0.0f, 0.0f, 0.0f));
+	sphere1.getMaterials().setShininess(100.0f);
+	sphere1.getMaterials().setSpecular(color(0.4f, 0.4f, 0.4f));
 
 	triangle0.getMaterials().setDiffuse(color(0.2f, 0.2f, 0.2f));
-	triangle0.getMaterials().setEmission(color(1.0f, 1.0f, 1.0f));
-	triangle0.getMaterials().setShininess(100.0f);
-	triangle0.getMaterials().setSpecular(color(1.0f, 1.0f, 1.0f));
+	triangle0.getMaterials().setEmission(color(0.1f, 0.1f, 0.1f));
+	triangle0.getMaterials().setShininess(40.0f);
+	triangle0.getMaterials().setSpecular(color(0.1f, 0.1f, 0.1f));
 
 	// Add objects and camera to Scene instance
 	Scene scene = Scene();
 	scene.setCamera(camera);
 	scene.addObject(sphere0);
-	//scene.addObject(sphere1);
+	scene.addObject(sphere1);
 	//scene.addObject(sphere2);
 	scene.addObject(triangle0);
 
 	// Add light to scene
-	scene.addLight(directional);
+	scene.addLight(directional0);
+	scene.addLight(directional1);
 
 
 	IntersectionInfo intersection;

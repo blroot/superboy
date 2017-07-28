@@ -19,24 +19,24 @@ namespace superboy {
 
 	color::color(float x, float y, float z) {
 
-		if (x > 255.0f) {
-			this->x = 255.0f;
+		if (x > 1.0f) {
+			this->x = 1.0f;
 		} else if (x < 0.0f) {
 			this->x = 0.0f;
 		} else {
 			this->x = x;
 		}
 
-		if (y > 255.0f) {
-			this->y = 255.0f;
+		if (y > 1.0f) {
+			this->y = 1.0f;
 		} else if (y < 0.0f) {
 			this->y = 0.0f;
 		} else {
 			this->y = y;
 		}
 
-		if (z > 255.0f) {
-			this->z = 255.0f;
+		if (z > 1.0f) {
+			this->z = 1.0f;
 		} else if (z < 0.0f) {
 			this->z = 0.0f;
 		} else {
