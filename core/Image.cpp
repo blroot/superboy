@@ -7,6 +7,7 @@
 
 #include "Image.h"
 #include <FreeImage.h>
+#include <iostream>
 
 namespace superboy {
 
@@ -53,9 +54,9 @@ namespace superboy {
 		int pixelsElement = 0;
 		for (int i = 0; i < this->height; i++) {
 			for (int j = 0; j < this->width; j++) {
-				pixels[pixelsElement] = getColor(i, j).x;
+				pixels[pixelsElement] = getColor(i, j).z;
 				pixels[pixelsElement+1] = getColor(i, j).y;
-				pixels[pixelsElement+2] = getColor(i, j).z;
+				pixels[pixelsElement+2] = getColor(i, j).x;
 				pixelsElement += 3;
 			}
 		}
@@ -63,6 +64,8 @@ namespace superboy {
 		FIBITMAP *img = FreeImage_ConvertFromRawBits(pixels, this->width, this->height, this->width * 3, 24, 0xFF0000, 0x00FF00, 0x0000FF, true);
 
 		FreeImage_Save(FIF_PNG, img, fname.c_str(), 0);
+
+		FreeImage_DeInitialise();
 	}
 
 } /* namespace superboy */

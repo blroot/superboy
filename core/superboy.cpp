@@ -49,9 +49,9 @@ int main(int argc, char **argv) {
 	sphere0.getMaterials().setShininess(100.0f);
 	sphere0.getMaterials().setSpecular(color(1.0f, 1.0f, 1.0f));
 
-	triangle0.getMaterials().setDiffuse(color(1.0f, 1.0f, 0.0f));
-	triangle0.getMaterials().setEmission(color(0.0f, 0.0f, 0.0f));
-	triangle0.getMaterials().setShininess(40.0f);
+	triangle0.getMaterials().setDiffuse(color(0.2f, 0.2f, 0.2f));
+	triangle0.getMaterials().setEmission(color(1.0f, 1.0f, 1.0f));
+	triangle0.getMaterials().setShininess(100.0f);
 	triangle0.getMaterials().setSpecular(color(1.0f, 1.0f, 1.0f));
 
 	// Add objects and camera to Scene instance

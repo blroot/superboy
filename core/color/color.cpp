@@ -50,7 +50,7 @@ namespace superboy {
 
 		if (this->x > 255.0f) {
 			x = 255.0f;
-		} else if (x < 0.0f) {
+		} else if (this->x < 0.0f) {
 			x = 0.0f;
 		} else {
 			x = this->x;
@@ -58,7 +58,7 @@ namespace superboy {
 
 		if (this->y > 255.0f) {
 			y = 255.0f;
-		} else if (y < 0.0f) {
+		} else if (this->y < 0.0f) {
 			y = 0.0f;
 		} else {
 			y = this->y;
@@ -66,7 +66,7 @@ namespace superboy {
 
 		if (this->z > 255.0f) {
 			z = 255.0f;
-		} else if (z < 0.0f) {
+		} else if (this->z < 0.0f) {
 			z = 0.0f;
 		} else {
 			z = this->z;
@@ -81,7 +81,7 @@ namespace superboy {
 	}
 
 	color color::operator+(color right) {
-		return color(this->x + right.x, this->y + right.y, this->z + right.z).normalize();
+		return color(this->x + right.x, this->y + right.y, this->z + right.z);
 	}
 
 	color& color::operator+=(color right) {
@@ -89,25 +89,23 @@ namespace superboy {
 		this->y = this->y + right.y;
 		this->z = this->z + right.z;
 
-		this->normalize();
-
 		return *this;
 	}
 
 	color color::operator-(color right) {
-		return color(this->x - right.x, this->y - right.y, this->z - right.z).normalize();
+		return color(this->x - right.x, this->y - right.y, this->z - right.z);
 	}
 
 	color color::operator*(float scalar) {
-		return color(scalar * this->x, scalar * this->y, scalar * this->z).normalize();
+		return color(scalar * this->x, scalar * this->y, scalar * this->z);
 	}
 
 	color operator*(float scalar, const color &vector) {
-		return color(scalar * vector.x, scalar * vector.y, scalar * vector.z).normalize();
+		return color(scalar * vector.x, scalar * vector.y, scalar * vector.z);
 	}
 
 	color operator*(int scalar, const color &vector) {
-		return color(scalar * vector.x, scalar * vector.y, scalar * vector.z).normalize();
+		return color(scalar * vector.x, scalar * vector.y, scalar * vector.z);
 	}
 
 }
