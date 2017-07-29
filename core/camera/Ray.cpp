@@ -21,6 +21,16 @@ namespace superboy {
 		return vec3(this->eye + this->direction*(lambda-0.01f));
 	}
 
+	vec3& Ray::getEye() {
+
+		return this->eye;
+	}
+
+	vec3& Ray::getDirection() {
+
+		return this->direction;
+	}
+
 	Ray::~Ray() {
 		// TODO Auto-generated destructor stub
 	}

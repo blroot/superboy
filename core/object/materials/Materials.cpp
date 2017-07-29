@@ -15,6 +15,12 @@ namespace superboy {
 		this->emission = color();
 		this->shininess = 0.0f;
 		this->specular = color();
+		this->ambient = color();
+	}
+
+	void Materials::setAmbient(color ambient) {
+
+		this->ambient = ambient;
 	}
 
 	void Materials::setDiffuse(color diffuse) {
@@ -35,6 +41,11 @@ namespace superboy {
 	void Materials::setEmission(color emission) {
 
 		 this->emission = emission;
+	}
+
+	color& Materials::getAmbient() {
+
+		return this->ambient;
 	}
 
 	color& Materials::getDiffuse() {

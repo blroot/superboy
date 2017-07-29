@@ -15,12 +15,14 @@ namespace superboy {
 
 	class Ray {
 		public:
-			vec3 eye;
-			vec3 direction;
-
 			Ray(vec3 eye, vec3 direction);
 			vec3 getPoint(float& lambda);
+			vec3& getEye();
+			vec3& getDirection();
 			virtual ~Ray();
+		private:
+			vec3 eye;
+			vec3 direction;
 	};
 
 } /* namespace superboy */

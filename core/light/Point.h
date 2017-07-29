@@ -1,7 +1,7 @@
 /*
- * Directional.h
+ * Point.h
  *
- *  Created on: Jul 26, 2017
+ *  Created on: Jul 29, 2017
  *      Author: blroot
  */
 
@@ -15,17 +15,18 @@ using namespace math;
 
 namespace superboy {
 
-	class Directional : public Light {
+	class Point : public Light {
 		public:
-			Directional(vec3 direction, color colorvec);
-			virtual ~Directional();
+			Point(vec3 position, color colorvec);
 			vec3& getDirection(vec3& origin);
-			vec3& getAttenuation();
 			color& getColor();
+			vec3& getAttenuation();
+			virtual ~Point();
 		private:
 			vec3 attenuation;
-			vec3 direction;
+			vec3 position;
 			color colorvec;
+			vec3 direction;
 	};
 
 } /* namespace superboy */

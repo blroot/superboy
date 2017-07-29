@@ -56,10 +56,9 @@ namespace superboy {
 
 		if (hitobject != NULL) {
 			normal = hitobject->getNormal(ray, minimum_distance);
-			point = ray.getPoint(minimum_distance);
 		}
 
-		return IntersectionInfo(minimum_distance, normal, point, *hitobject);
+		return IntersectionInfo(minimum_distance, normal, ray, *hitobject);
 	}
 
 	std::vector<Object*>& Scene::getObjects() {

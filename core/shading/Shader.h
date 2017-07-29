@@ -13,6 +13,10 @@
 
 namespace superboy {
 
+	enum RayType {
+		primary, secondary
+	};
+
 	class Shader {
 		public:
 			Shader(Scene &scene);
@@ -20,6 +24,7 @@ namespace superboy {
 			virtual ~Shader();
 		private:
 			Scene* scene;
+			void recursiveShading(IntersectionInfo& intersection, color& reflectivity, color& colorvec, int recursion_depth, RayType ray_type);
 	};
 
 } /* namespace superboy */

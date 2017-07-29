@@ -18,7 +18,8 @@ class Light {
 	public:
 		Light();
 		virtual ~Light();
-		virtual vec3& getDirection() =0;
+		virtual vec3& getDirection(vec3& origin) =0;
+		virtual vec3& getAttenuation() =0;
 		virtual color& getColor() =0;
 	};
 

@@ -15,6 +15,7 @@ namespace superboy {
 		public:
 			Materials();
 			virtual ~Materials();
+			void setAmbient(color ambient);
 			void setDiffuse(color diffuse);
 			void setSpecular(color specular);
 			void setShininess(float shininess);
@@ -23,7 +24,9 @@ namespace superboy {
 			color& getSpecular();
 			float& getShininess();
 			color& getEmission();
+			color& getAmbient();
 		private:
+			color ambient;
 			color diffuse;
 			color specular;
 			float shininess;

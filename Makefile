@@ -9,8 +9,8 @@ RM = /bin/rm -f
 all:superboy
 tests:tests
 
-superboy: build/vec3.o build/mat4.o build/superboy.o build/color.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Materials.o build/Shader.o
-	$(CC) $(CFLAGS)-o superboy build/vec3.o build/mat4.o build/color.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Materials.o build/Shader.o $(INCFLAGS) $(LDFLAGS)
+superboy: build/vec3.o build/mat4.o build/superboy.o build/color.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Point.o build/Materials.o build/Shader.o
+	$(CC) $(CFLAGS)-o superboy build/vec3.o build/mat4.o build/color.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Point.o build/Materials.o build/Shader.o $(INCFLAGS) $(LDFLAGS)
 tests: build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread
 	$(CC) $(CFLAGS) -o tests build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread $(INCFLAGS) $(LDFLAGS)
 build/mat3.o: utils/math/mat3.h 
@@ -43,6 +43,8 @@ build/Light.o: core/light/Light.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/light/Light.cpp -o build/Light.o
 build/Directional.o: core/light/Directional.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/light/Directional.cpp -o build/Directional.o
+build/Point.o: core/light/Point.h
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/light/Point.cpp -o build/Point.o
 build/Shader.o: core/shading/Shader.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/shading/Shader.cpp -o build/Shader.o
 build/superboy.o:

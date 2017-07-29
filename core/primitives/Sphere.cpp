@@ -21,9 +21,9 @@ namespace superboy {
 
 		float intersection = 0.0f;
 
-		float a = ray.direction.dot(ray.direction);
-		float b = 2*(ray.direction.dot(ray.eye - this->center));
-		float c = ((ray.eye - this->center).dot(ray.eye - this->center)) - this->radius*this->radius;
+		float a = ray.getDirection().dot(ray.getDirection());
+		float b = 2*(ray.getDirection().dot(ray.getEye() - this->center));
+		float c = ((ray.getEye() - this->center).dot(ray.getEye() - this->center)) - this->radius*this->radius;
 
 		float discriminant = b*b - 4*a*c;
 
@@ -52,7 +52,7 @@ namespace superboy {
 
 	vec3 Sphere::getNormal(Ray& ray, float& point) {
 
-		return vec3(((ray.eye + ray.direction*point)-this->center).normalize());
+		return vec3(((ray.getEye() + ray.getDirection()*point)-this->center).normalize());
 	}
 
 	vec3 Sphere::getCenter() {

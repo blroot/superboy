@@ -13,11 +13,17 @@ namespace superboy {
 
 		this->direction = direction;
 		this->colorvec = colorvec;
+		this->attenuation = vec3(1.0f, 0.0f, 0.0f);
 	}
 
-	vec3& Directional::getDirection() {
+	vec3& Directional::getDirection(vec3 &origin) {
 
 		return this->direction;
+	}
+
+	vec3& Directional::getAttenuation() {
+
+		return this->attenuation;
 	}
 
 	color& Directional::getColor() {

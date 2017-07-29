@@ -27,10 +27,10 @@ namespace superboy {
 		float intersection = 0.0f;
 
 		// Construct plane from A,B,C
-		float t = (this->A.dot(this->normal)-ray.eye.dot(this->normal))/ray.direction.dot(this->normal);
+		float t = (this->A.dot(this->normal)-ray.getEye().dot(this->normal))/ray.getDirection().dot(this->normal);
 
 		// Compute dot products
-		vec3 P = ray.eye + ray.direction*t;
+		vec3 P = ray.getEye() + ray.getDirection()*t;
 
 		vec3 v2 = P-this->A;
 		vec3 v0 = this->B-this->A;
@@ -54,7 +54,7 @@ namespace superboy {
 
 	vec3 Triangle::getNormal(Ray &ray, float &point) {
 
-		return this->normal.normalize();
+		return this->normal;
 	}
 
 } /* namespace superboy */
