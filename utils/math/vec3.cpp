@@ -72,4 +72,9 @@ namespace math {
 	vec3 operator*(int scalar, const vec3 &vector) {
 		return vec3(scalar * vector.x, scalar * vector.y, scalar * vector.z);
 	}
+
+	std::ostream& operator<<(std::ostream& stream, const vec3& vector) {
+		stream << "vec3: (" << vector.x << ", " << vector.y << ", " << vector.z << ")";
+		return stream;
+	}
 }

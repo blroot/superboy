@@ -8,14 +8,15 @@
 #pragma once
 
 #include "../object/Object.h"
+#include <memory>
 
 namespace superboy {
 
 class IntersectionInfo {
 	public:
 		IntersectionInfo();
-		IntersectionInfo(float minimum_distance, vec3 normal, Ray& ray, Object &hitobject);
-		Object* getHitObject();
+		IntersectionInfo(float minimum_distance, vec3 normal, Ray& ray, std::shared_ptr<Object> hitobject);
+		std::shared_ptr<Object> getHitObject();
 		float& getMinimumDistance();
 		vec3& getNormal();
 		Ray* getRay();
@@ -24,7 +25,7 @@ class IntersectionInfo {
 		float minimum_distance;
 		vec3 normal;
 		Ray* ray;
-		Object* hitobject;
+		std::shared_ptr<Object> hitobject;
 	};
 
 } /* namespace superboy */

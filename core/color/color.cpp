@@ -108,4 +108,9 @@ namespace superboy {
 		return color(scalar * vector.x, scalar * vector.y, scalar * vector.z);
 	}
 
+	std::ostream& operator<<(std::ostream& stream, const color& vector) {
+		stream << "color: (" << vector.x << ", " << vector.y << ", " << vector.z << ")";
+		return stream;
+	}
+
 }

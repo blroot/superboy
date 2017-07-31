@@ -13,20 +13,22 @@ namespace superboy {
 
 	Scene::Scene() {
 
+		this->height = 0;
+		this->width = 0;
 	}
 
 	Scene::~Scene() {
 		// TODO Auto-generated destructor stub
 	}
 
-	void Scene::addObject(Object& object) {
+	void Scene::addObject(std::shared_ptr<Object> object) {
 
-		this->objects.push_back(&object);
+		this->objects.push_back(object);
 	}
 
-	void Scene::addLight(Light& light) {
+	void Scene::addLight(std::shared_ptr<Light> light) {
 
-		this->lights.push_back(&light);
+		this->lights.push_back(light);
 	}
 
 	void Scene::setCamera(Camera &camera) {
@@ -34,10 +36,17 @@ namespace superboy {
 		this->camera = camera;
 	}
 
+	void Scene::setResolution(int width, int height) {
+
+		this->height = height;
+		this->width = width;
+	}
+
 	IntersectionInfo Scene::intersect(Ray ray) {
 
 		float minimum_distance = INFINITY;
-		Object *hitobject = 0;
+		std::shared_ptr<Object> hitobject = nullptr;
+		//Object *hitobject = 0;
 
 		for (int i = 0; i < this->objects.size(); i++) {
 
@@ -45,7 +54,7 @@ namespace superboy {
 
 			if (t > 0.0f and t < minimum_distance) {
 
-				//std::cout << "Intersection with object " << i << "-> t is : " << t << std::endl;
+				std::cout << "Intersection with object " << i << "-> t is : " << t << std::endl;
 				minimum_distance = t;
 				hitobject = this->objects[i];
 			}
@@ -58,15 +67,15 @@ namespace superboy {
 			normal = hitobject->getNormal(ray, minimum_distance);
 		}
 
-		return IntersectionInfo(minimum_distance, normal, ray, *hitobject);
+		return IntersectionInfo(minimum_distance, normal, ray, hitobject);
 	}
 
-	std::vector<Object*>& Scene::getObjects() {
+	std::vector< std::shared_ptr<Object> >& Scene::getObjects() {
 
 		return this->objects;
 	}
 
-	std::vector<Light*>& Scene::getLights() {
+	std::vector< std::shared_ptr<Light> >& Scene::getLights() {
 
 		return this->lights;
 	}
@@ -74,6 +83,16 @@ namespace superboy {
 	Camera& Scene::getCamera() {
 
 		return this->camera;
+	}
+
+	int& Scene::getWidth() {
+
+		return this->width;
+	}
+
+	int& Scene::getHeight() {
+
+		return this->height;
 	}
 
 } /* namespace superboy */

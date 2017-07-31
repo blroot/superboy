@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <ostream>
+
 namespace math {
 
 	struct vec3 {
@@ -25,6 +27,7 @@ namespace math {
 		vec3& operator+=(vec3 right);
 		vec3 operator-(vec3 right);
 		vec3 operator*(float scalar);
+		friend std::ostream& operator<<(std::ostream& stream, const vec3& vector);
 		friend vec3 operator*(float scalar, const vec3& vector);
 		friend vec3 operator*(int scalar, const vec3& vector);
 		vec3 cross(vec3 vector) const;

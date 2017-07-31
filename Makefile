@@ -1,4 +1,4 @@
-CC = g++
+CC = g++ -std=c++11
 
 CFLAGS = 
 INCFLAGS = 
@@ -9,8 +9,8 @@ RM = /bin/rm -f
 all:superboy
 tests:tests
 
-superboy: build/vec3.o build/mat4.o build/superboy.o build/color.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Point.o build/Materials.o build/Shader.o
-	$(CC) $(CFLAGS)-o superboy build/vec3.o build/mat4.o build/color.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Point.o build/Materials.o build/Shader.o $(INCFLAGS) $(LDFLAGS)
+superboy: build/vec3.o build/mat4.o build/superboy.o build/color.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Point.o build/Materials.o build/Shader.o build/SceneReader.o
+	$(CC) $(CFLAGS)-o superboy build/vec3.o build/mat4.o build/color.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Point.o build/Materials.o build/Shader.o build/SceneReader.o $(INCFLAGS) $(LDFLAGS)
 tests: build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread
 	$(CC) $(CFLAGS) -o tests build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread $(INCFLAGS) $(LDFLAGS)
 build/mat3.o: utils/math/mat3.h 
@@ -32,7 +32,7 @@ build/Sphere.o: core/primitives/Sphere.h
 build/Triangle.o: core/primitives/Triangle.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/primitives/Triangle.cpp -o build/Triangle.o
 build/Scene.o: core/scene/Scene.h
-	$(CC) $(CFLAGS) $(INCFLAGS) -c core/scene/Scene.cpp -o build/Scene.o
+	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/scene/Scene.cpp -o build/Scene.o
 build/IntersectionInfo.o: core/scene/IntersectionInfo.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/scene/IntersectionInfo.cpp -o build/IntersectionInfo.o
 build/Object.o: core/object/Object.h
@@ -47,8 +47,10 @@ build/Point.o: core/light/Point.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/light/Point.cpp -o build/Point.o
 build/Shader.o: core/shading/Shader.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/shading/Shader.cpp -o build/Shader.o
-build/superboy.o:
-	$(CC) $(CFLAGS) $(INCFLAGS) -c core/superboy.cpp -o build/superboy.o
+build/SceneReader.o: core/filereader/SceneReader.h
+	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/filereader/SceneReader.cpp -o build/SceneReader.o
+build/superboy.o core/superboy.h:
+	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/superboy.cpp -o build/superboy.o
 clean: 
 	$(RM) build/*.o 
 	$(RM) superboy 

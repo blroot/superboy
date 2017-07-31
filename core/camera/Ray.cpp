@@ -18,7 +18,7 @@ namespace superboy {
 	vec3 Ray::getPoint(float &lambda) {
 
 		// Get a little closer to light to overcome numerical errors
-		return vec3(this->eye + this->direction*(lambda-0.01f));
+		return vec3(this->eye + this->direction*(lambda-1e-4));
 	}
 
 	vec3& Ray::getEye() {

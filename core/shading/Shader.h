@@ -20,11 +20,11 @@ namespace superboy {
 	class Shader {
 		public:
 			Shader(Scene &scene);
-			color computeColor(IntersectionInfo& intersection);
+			color computeColor(IntersectionInfo& intersection, int recursion_depth);
 			virtual ~Shader();
 		private:
 			Scene* scene;
-			void recursiveShading(IntersectionInfo& intersection, color& reflectivity, color& colorvec, int recursion_depth, RayType ray_type);
+			color colorModel(IntersectionInfo& intersection);
 	};
 
 } /* namespace superboy */
