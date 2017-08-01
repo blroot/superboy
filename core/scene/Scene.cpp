@@ -46,7 +46,6 @@ namespace superboy {
 
 		float minimum_distance = INFINITY;
 		std::shared_ptr<Object> hitobject = nullptr;
-		//Object *hitobject = 0;
 
 		for (int i = 0; i < this->objects.size(); i++) {
 
@@ -54,7 +53,7 @@ namespace superboy {
 
 			if (t > 0.0f and t < minimum_distance) {
 
-				std::cout << "Intersection with object " << i << "-> t is : " << t << std::endl;
+				//std::cout << "Intersection with object " << i << "-> t is : " << t << std::endl;
 				minimum_distance = t;
 				hitobject = this->objects[i];
 			}

@@ -16,6 +16,7 @@
 #include "../light/Point.h"
 #include "../color/color.h"
 #include "../primitives/Triangle.h"
+#include "../primitives/Sphere.h"
 
 namespace superboy {
 
@@ -24,7 +25,7 @@ class SceneReader {
 		SceneReader(const char* filename);
 		Scene read();
 		virtual ~SceneReader();
-	//private:
+	private:
 		bool readvals(std::stringstream &s, const int numvals, float* values);
 		const char* filename;
 		color ambient;

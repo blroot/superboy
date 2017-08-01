@@ -93,7 +93,6 @@ namespace superboy {
 							vec3 direction = vec3(values[0], values[1], values[2]);
 							color colorvec = color(values[3], values[4], values[5]);
 
-							//Directional directional = Directional(direction, colorvec);
 							std::shared_ptr<Directional> directional(new Directional(direction, colorvec));
 
 							scene.addLight(directional);
@@ -110,7 +109,6 @@ namespace superboy {
 							vec3 position = vec3(values[0], values[1], values[2]);
 							color colorvec = color(values[3], values[4], values[5]);
 
-							//Directional point = Directional(position, colorvec);
 							std::shared_ptr<Point> point(new Point(position, colorvec));
 
 							scene.addLight(point);
@@ -146,18 +144,36 @@ namespace superboy {
 
 						if (valid_input) {
 
-							//Triangle triangle = Triangle(vertex_buffer[0], vertex_buffer[1], vertex_buffer[2]);
-
-							std::shared_ptr<Triangle> triangle(new Triangle(vertex_buffer[0], vertex_buffer[1], vertex_buffer[2]));
+							std::shared_ptr<Triangle> triangle(new Triangle(vertex_buffer[values[0]], vertex_buffer[values[1]], vertex_buffer[values[2]]));
 
 							triangle->getMaterials().setAmbient(this->ambient);
 							triangle->getMaterials().setDiffuse(this->diffuse);
 							scene.addObject(triangle);
 
-							std::cout << "Adding triangle to scene with vertices: " << vertex_buffer[0]
-										<< " " << vertex_buffer[1] << " " << vertex_buffer[2] << std::endl;
+							std::cout << "Adding triangle to scene with vertices: " << vertex_buffer[values[0]]
+										<< " " << vertex_buffer[values[1]] << " " << vertex_buffer[values[2]] << std::endl;
 							std::cout << "Setting triangle ambient to: " << this->ambient << std::endl;
 							std::cout << "Setting triangle diffuse to: " << this->diffuse << std::endl;
+						}
+
+					} else if (command == "sphere") {
+
+						valid_input = this->readvals(s, 4, values);
+
+						if (valid_input) {
+
+							vec3 center = vec3(values[0], values[1], values[2]);
+							float radius = values[3];
+
+							std::shared_ptr<Sphere> sphere(new Sphere(center, radius));
+
+							sphere->getMaterials().setAmbient(this->ambient);
+							sphere->getMaterials().setDiffuse(this->diffuse);
+							scene.addObject(sphere);
+
+							std::cout << "Adding sphere to scene with center: " << center << " radius: " << radius << std::endl;
+							std::cout << "Setting sphere ambient to: " << this->ambient << std::endl;
+							std::cout << "Setting sphere diffuse to: " << this->diffuse << std::endl;
 						}
 
 					}
@@ -174,8 +190,10 @@ namespace superboy {
 	}
 
 	bool SceneReader::readvals(stringstream &s, const int numvals, float* values) {
+
 	  for (int i = 0; i < numvals; i++) {
 	    s >> values[i];
+
 	    if (s.fail()) {
 	      cout << "Failed reading value " << i << " will skip\n";
 	      return false;
