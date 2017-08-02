@@ -14,6 +14,7 @@
 #include "filereader/SceneReader.h"
 #include <string>
 #include <iostream>
+#include <omp.h>
 
 using namespace superboy;
 using namespace math;
@@ -43,6 +44,7 @@ int main(int argc, char **argv) {
 	int pixels_processed = 0;
 	int total_pixels = width * height;
 
+	#pragma omp parallel for private(intersection)
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 

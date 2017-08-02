@@ -60,7 +60,6 @@ namespace superboy {
 		}
 
 		vec3 normal = vec3();
-		vec3 point = vec3();
 
 		if (hitobject != NULL) {
 			normal = hitobject->getNormal(ray, minimum_distance);

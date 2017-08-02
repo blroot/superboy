@@ -21,11 +21,12 @@ namespace superboy {
 	color Shader::computeColor(IntersectionInfo &intersection, int recursion_depth) {
 
 		if (recursion_depth <= 0) {
-			return color(); // TODO: should be ambient
+			return intersection.getHitObject()->getMaterials().getAmbient();
 		}
 		if (intersection.getHitObject() == nullptr) {
 			return color(); // TODO: should be ambient
 		}
+
 		color colorvec = colorModel(intersection);
 
 		vec3 surface_normal = intersection.getNormal();
@@ -94,3 +95,4 @@ namespace superboy {
 	}
 
 } /* namespace superboy */
+

@@ -1,7 +1,7 @@
 CC = g++ -std=c++11
 
 CFLAGS = 
-INCFLAGS = 
+INCFLAGS = -fopenmp
 LDFLAGS = -lfreeimage
 
 RM = /bin/rm -f 
@@ -34,7 +34,7 @@ build/Triangle.o: core/primitives/Triangle.h
 build/Scene.o: core/scene/Scene.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/scene/Scene.cpp -o build/Scene.o
 build/IntersectionInfo.o: core/scene/IntersectionInfo.h
-	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/scene/IntersectionInfo.cpp -o build/IntersectionInfo.o
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/scene/IntersectionInfo.cpp -o build/IntersectionInfo.o
 build/Object.o: core/object/Object.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/object/Object.cpp -o build/Object.o
 build/Materials.o: core/object/materials/Materials.h
@@ -46,11 +46,11 @@ build/Directional.o: core/light/Directional.h
 build/Point.o: core/light/Point.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/light/Point.cpp -o build/Point.o
 build/Shader.o: core/shading/Shader.h
-	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/shading/Shader.cpp -o build/Shader.o
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/shading/Shader.cpp -o build/Shader.o
 build/SceneReader.o: core/filereader/SceneReader.h
-	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/filereader/SceneReader.cpp -o build/SceneReader.o
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/filereader/SceneReader.cpp -o build/SceneReader.o
 build/superboy.o core/superboy.h:
-	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/superboy.cpp -o build/superboy.o
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/superboy.cpp -o build/superboy.o
 clean: 
 	$(RM) build/*.o 
 	$(RM) superboy 
