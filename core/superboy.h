@@ -6,3 +6,4 @@
  */
 
 void printHelp();
+void printProgress(int& total_pixels, int& pixels_processed);

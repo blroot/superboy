@@ -29,6 +29,7 @@ namespace superboy {
 		color colorvec = colorModel(intersection);
 
 		vec3 surface_normal = intersection.getNormal();
+
 		vec3 hitpoint = intersection.getRay()->getPoint(intersection.getMinimumDistance());
 
 		// Reflection Ray

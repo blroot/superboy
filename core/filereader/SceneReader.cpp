@@ -19,6 +19,7 @@ namespace superboy {
 
 		this->filename = filename;
 		this->ambient = color(0.2f, 0.2f, 0.2f);
+		this->shininess = 0.0f;
 	}
 
 	Scene SceneReader::read() {
@@ -127,6 +128,27 @@ namespace superboy {
 							std::cout << "Setting diffuse to: " << diffuse << std::endl;
 						}
 
+					} else if (command == "specular") {
+
+						valid_input = this->readvals(s, 3, values);
+
+						if (valid_input) {
+
+							color specular = color(values[0], values[1], values[2]);
+							this->specular = specular;
+							std::cout << "Setting specular to: " << specular << std::endl;
+						}
+
+					} else if (command == "shininess") {
+
+						valid_input = this->readvals(s, 1, values);
+
+						if (valid_input) {
+
+							this->shininess = values[0];
+							std::cout << "Setting shininess to: " << values[0] << std::endl;
+						}
+
 					} else if (command == "vertex") {
 
 						valid_input = this->readvals(s, 3, values);
@@ -148,12 +170,16 @@ namespace superboy {
 
 							triangle->getMaterials().setAmbient(this->ambient);
 							triangle->getMaterials().setDiffuse(this->diffuse);
+							triangle->getMaterials().setSpecular(this->specular);
+							triangle->getMaterials().setShininess(this->shininess);
 							scene.addObject(triangle);
 
 							std::cout << "Adding triangle to scene with vertices: " << vertex_buffer[values[0]]
 										<< " " << vertex_buffer[values[1]] << " " << vertex_buffer[values[2]] << std::endl;
 							std::cout << "Setting triangle ambient to: " << this->ambient << std::endl;
 							std::cout << "Setting triangle diffuse to: " << this->diffuse << std::endl;
+							std::cout << "Setting triangle specular to: " << this->specular << std::endl;
+							std::cout << "Setting triangle shininess to: " << this->shininess << std::endl;
 						}
 
 					} else if (command == "sphere") {
@@ -169,11 +195,15 @@ namespace superboy {
 
 							sphere->getMaterials().setAmbient(this->ambient);
 							sphere->getMaterials().setDiffuse(this->diffuse);
+							sphere->getMaterials().setSpecular(this->specular);
+							sphere->getMaterials().setShininess(this->shininess);
 							scene.addObject(sphere);
 
 							std::cout << "Adding sphere to scene with center: " << center << " radius: " << radius << std::endl;
 							std::cout << "Setting sphere ambient to: " << this->ambient << std::endl;
 							std::cout << "Setting sphere diffuse to: " << this->diffuse << std::endl;
+							std::cout << "Setting sphere specular to: " << this->specular << std::endl;
+							std::cout << "Setting sphere shininess to: " << this->shininess << std::endl;
 						}
 
 					}

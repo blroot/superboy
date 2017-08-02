@@ -30,6 +30,8 @@ class SceneReader {
 		const char* filename;
 		color ambient;
 		color diffuse;
+		color specular;
+		float shininess;
 		std::vector<vec3> vertex_buffer;
 };
 

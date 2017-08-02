@@ -2,7 +2,7 @@ size 640 480
 
 camera 0 0 5 0 0 0 0 1 0 45
 
-ambient 1 .1 .1
+ambient .1 .1 .1
 directional -1 -1 .5 1 1 1 
 point 0 0 1 1 1 1
 diffuse 1 0 0 
