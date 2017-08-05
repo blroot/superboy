@@ -345,4 +345,20 @@ namespace math {
 		}
 	}
 
+	bool mat4::operator==(mat4 matrix) {
+
+		for (int i = 0; i < 16; i++)  {
+			if (this->elements[i] != matrix.elements[i]) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool mat4::operator!=(mat4 matrix) {
+
+		return !this->operator==(matrix);
+	}
+
 }

@@ -29,8 +29,8 @@ int main(int argc, char **argv) {
 	SceneReader scene_reader = SceneReader(argv[1]);
 	Scene scene = scene_reader.read();
 
-	std::string fname = "BSOD.png";
-	int recursion_depth = 5;
+	std::string fname = scene.getFilename();
+	int recursion_depth = scene.getMaxdepth();
 
 	// Create image
 	int height = scene.getHeight();
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 	int pixels_processed = 0;
 	int total_pixels = width * height;
 
-	#pragma omp parallel for private(intersection)
+	#pragma omp parallel for collapse(2) private(intersection)
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 
@@ -52,9 +52,11 @@ int main(int argc, char **argv) {
 			intersection = scene.intersect(ray);
 			image.setColor(i, j, shader.computeColor(intersection, recursion_depth));
 
-			pixels_processed++;
-			printProgress(total_pixels, pixels_processed);
-
+			#pragma omp critical
+			{
+				pixels_processed++;
+				printProgress(total_pixels, pixels_processed);
+			}
 		}
 	}
 

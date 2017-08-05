@@ -22,15 +22,16 @@ namespace superboy {
 
 class SceneReader {
 	public:
-		SceneReader(const char* filename);
+		SceneReader(const char* file);
 		Scene read();
 		virtual ~SceneReader();
 	private:
 		bool readvals(std::stringstream &s, const int numvals, float* values);
-		const char* filename;
+		const char* file;
 		color ambient;
 		color diffuse;
 		color specular;
+		color emission;
 		float shininess;
 		std::vector<vec3> vertex_buffer;
 };

@@ -15,6 +15,8 @@ namespace superboy {
 
 		this->height = 0;
 		this->width = 0;
+		this->maxdepth = 1;
+		this->filename = "default.png";
 	}
 
 	Scene::~Scene() {
@@ -42,6 +44,16 @@ namespace superboy {
 		this->width = width;
 	}
 
+	void Scene::setFilename(std::string filename) {
+
+		this->filename = filename;
+	}
+
+	void Scene::setMaxdepth(int depth) {
+
+		this->maxdepth = depth;
+	}
+
 	IntersectionInfo Scene::intersect(Ray ray) {
 
 		float minimum_distance = INFINITY;
@@ -53,7 +65,6 @@ namespace superboy {
 
 			if (t > 0.0f and t < minimum_distance) {
 
-				//std::cout << "Intersection with object " << i << "-> t is : " << t << std::endl;
 				minimum_distance = t;
 				hitobject = this->objects[i];
 			}
@@ -91,6 +102,16 @@ namespace superboy {
 	int& Scene::getHeight() {
 
 		return this->height;
+	}
+
+	int& Scene::getMaxdepth() {
+
+		return this->maxdepth;
+	}
+
+	std::string& Scene::getFilename() {
+
+		return this->filename;
 	}
 
 } /* namespace superboy */

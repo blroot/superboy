@@ -15,6 +15,7 @@ namespace superboy {
 		this->A = A;
 		this->B = B;
 		this->C = C;
+
 		this->materials = Materials();
 		this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
 		this->fix_normal = true;
@@ -22,6 +23,21 @@ namespace superboy {
 
 	Triangle::~Triangle() {
 		// TODO Auto-generated destructor stub
+	}
+
+	void Triangle::applyTransform() {
+
+		this->A = this->transform * this->A;
+		this->B = this->transform * this->B;
+		this->C = this->transform * this->C;
+
+		// Translation - Since we're not using homogeneous coordinates, we do this this way
+		this->A += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
+		this->B += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
+		this->C += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
+
+		this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
+		this->fix_normal = true;
 	}
 
 	float Triangle::intersect(Ray ray) {
@@ -74,6 +90,21 @@ namespace superboy {
 
 		return this->normal;
 
+	}
+
+	vec3& Triangle::getA() {
+
+		return this->A;
+	}
+
+	vec3& Triangle::getC() {
+
+		return this->B;
+	}
+
+	vec3& Triangle::getB() {
+
+		return this->C;
 	}
 
 } /* namespace superboy */

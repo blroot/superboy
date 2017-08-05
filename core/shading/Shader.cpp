@@ -11,6 +11,7 @@
 #include <math.h>
 #include <cmath>
 
+
 namespace superboy {
 
 	Shader::Shader(Scene& scene) {
@@ -52,6 +53,7 @@ namespace superboy {
 	color Shader::colorModel(IntersectionInfo &intersection) {
 
 		vec3 hitpoint = intersection.getRay()->getPoint(intersection.getMinimumDistance());
+
 		color diffuse = intersection.getHitObject()->getMaterials().getDiffuse();
 		color specular = intersection.getHitObject()->getMaterials().getSpecular();
 		vec3 surface_normal = intersection.getNormal();
@@ -82,7 +84,8 @@ namespace superboy {
 				color lambert = diff_light * std::max(surface_normal.normalize().dot(light_direction.normalize()), 0.0f);
 				color phong = spec_light * pow(std::max(surface_normal.dot(halfvec), 0.0f), intersection.getHitObject()->getMaterials().getShininess());
 
-				colorvec += (1/attenuation_model) * (lambert + phong);
+				//colorvec += (1/attenuation_model) * (lambert + phong);
+				colorvec += lambert + phong;
 			}
 
 		}

@@ -11,11 +11,8 @@
 #include "../scene/Scene.h"
 #include "../color/color.h"
 
-namespace superboy {
 
-	enum RayType {
-		primary, secondary
-	};
+namespace superboy {
 
 	class Shader {
 		public:

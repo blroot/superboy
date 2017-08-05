@@ -37,6 +37,7 @@ namespace math {
 		vec3 operator*(const vec3& vector);
 		mat4& operator=(mat4 matrix);
 		bool operator==(mat4 matrix);
+		bool operator!=(mat4 matrix);
 	};
 
 }

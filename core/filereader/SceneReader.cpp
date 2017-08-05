@@ -6,18 +6,20 @@
  */
 
 #include "SceneReader.h"
+#include "../../utils/math/mat4.h"
 #include <sstream>
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
 namespace superboy {
 
-	SceneReader::SceneReader(const char* filename) {
+	SceneReader::SceneReader(const char* file) {
 
-		this->filename = filename;
+		this->file = file;
 		this->ambient = color(0.2f, 0.2f, 0.2f);
 		this->shininess = 0.0f;
 	}
@@ -25,13 +27,17 @@ namespace superboy {
 	Scene SceneReader::read() {
 
 		Scene scene = Scene();
+		std::stack<mat4> transfstack;
 
 		ifstream infile;
 		string line, command;
 
-		infile.open(this->filename);
+		infile.open(this->file);
 
 		if (infile.is_open()) {
+
+			// Initially push identity into transformation stack
+			transfstack.push(mat4(1.0f));
 
 			getline(infile, line);
 
@@ -42,6 +48,7 @@ namespace superboy {
 						&& (line[0] != '#')) {
 
 					float values[10];
+					std::string filename;
 					bool valid_input;
 
 					stringstream s(line);
@@ -72,6 +79,16 @@ namespace superboy {
 							scene.setCamera(camera);
 							std::cout << "Setting camera coordinates: eye " << eye << " center " << center
 									<< " up " << up << " fov: " << values[9] << std::endl;
+						}
+
+					} else if (command == "output") {
+
+						s >> filename;
+
+						if (filename != " ") {
+
+							scene.setFilename(filename);
+							std::cout << "Setting output filename to: " << values[0] << std::endl;
 						}
 
 					} else if (command == "ambient") {
@@ -112,6 +129,8 @@ namespace superboy {
 
 							std::shared_ptr<Point> point(new Point(position, colorvec));
 
+							point->setTransform(transfstack.top());
+							point->applyTransform();
 							scene.addLight(point);
 							std::cout << "Adding point light with: position " << position << " color "
 									<< colorvec << std::endl;
@@ -128,7 +147,18 @@ namespace superboy {
 							std::cout << "Setting diffuse to: " << diffuse << std::endl;
 						}
 
-					} else if (command == "specular") {
+					} else if (command == "emission") {
+
+						valid_input = this->readvals(s, 3, values);
+
+						if (valid_input) {
+
+							color emission = color(values[0], values[1], values[2]);
+							this->emission = emission;
+							std::cout << "Setting emission to: " << emission << std::endl;
+						}
+
+					}else if (command == "specular") {
 
 						valid_input = this->readvals(s, 3, values);
 
@@ -172,6 +202,9 @@ namespace superboy {
 							triangle->getMaterials().setDiffuse(this->diffuse);
 							triangle->getMaterials().setSpecular(this->specular);
 							triangle->getMaterials().setShininess(this->shininess);
+							triangle->getMaterials().setEmission(this->emission);
+							triangle->setTransform(transfstack.top());
+							triangle->applyTransform();
 							scene.addObject(triangle);
 
 							std::cout << "Adding triangle to scene with vertices: " << vertex_buffer[values[0]]
@@ -197,6 +230,8 @@ namespace superboy {
 							sphere->getMaterials().setDiffuse(this->diffuse);
 							sphere->getMaterials().setSpecular(this->specular);
 							sphere->getMaterials().setShininess(this->shininess);
+							sphere->getMaterials().setEmission(this->emission);
+							sphere->setTransform(transfstack.top());
 							scene.addObject(sphere);
 
 							std::cout << "Adding sphere to scene with center: " << center << " radius: " << radius << std::endl;
@@ -206,7 +241,68 @@ namespace superboy {
 							std::cout << "Setting sphere shininess to: " << this->shininess << std::endl;
 						}
 
-					}
+					} else if (command == "pushTransform") {
+
+			          transfstack.push(transfstack.top());
+			          std::cout << "Pushing current transform to the stack" << std::endl;
+
+			        } else if (command == "popTransform") {
+
+			          if (transfstack.size() <= 1) {
+
+			            cerr << "Stack has no elements.  Cannot Pop\n";
+			          } else {
+
+			            transfstack.pop();
+			            std::cout << "Popping current transform from the stack" << std::endl;
+
+			          }
+
+			        } else if (command == "translate") {
+
+						valid_input = this->readvals(s, 3, values);
+
+						if (valid_input) {
+
+							mat4 translation_matrix = mat4().translate(values[0], values[1], values[2]);
+							mat4 &top_matrix = transfstack.top();
+							top_matrix = top_matrix * translation_matrix;
+							std::cout << "Applying transform -> Translating: " << vec3(values[0], values[1], values[2]) << std::endl;
+						}
+
+			        } else if (command == "scale") {
+
+						valid_input = this->readvals(s, 3, values);
+
+						if (valid_input) {
+
+							mat4 scale_matrix = mat4().scale(values[0], values[1], values[2]);
+							std::cout << scale_matrix.elements[0] << std::endl;
+							std::cout << scale_matrix.elements[1] << std::endl;
+							std::cout << scale_matrix.elements[2] << std::endl;
+							std::cout << scale_matrix.elements[3] << std::endl;
+							mat4 &top_matrix = transfstack.top();
+							top_matrix = top_matrix * scale_matrix;
+							std::cout << "Applying transform -> Scaling: " << vec3(values[0], values[1], values[2]) << std::endl;
+						}
+
+			        } else if (command == "rotate") {
+
+						valid_input = this->readvals(s, 4, values);
+
+						if (valid_input) {
+
+							vec3 axis = vec3(values[0], values[1], values[2]);
+
+							mat4 rotation_matrix = mat4().rotate(values[3], axis);
+							mat4 &top_matrix = transfstack.top();
+							top_matrix = top_matrix * rotation_matrix;
+							std::cout << "Applying transform -> Rotating: axis:" << axis << " angle:" << values[3] << std::endl;
+						}
+
+			        }
+
+					std::cout << "==================================" << std::endl;
 
 				}
 				// Get next line

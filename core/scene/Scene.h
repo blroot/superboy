@@ -25,11 +25,15 @@ class Scene {
 		void addLight(std::shared_ptr<Light> light);
 		void setCamera(Camera &camera);
 		void setResolution(int width, int height);
+		void setMaxdepth(int depth);
+		void setFilename(std::string filename);
 		std::vector< std::shared_ptr<Object> >& getObjects();
 		std::vector< std::shared_ptr<Light> >& getLights();
 		Camera& getCamera();
 		int& getWidth();
 		int& getHeight();
+		std::string& getFilename();
+		int& getMaxdepth();
 		IntersectionInfo intersect(Ray ray);
 		virtual ~Scene();
 	private:
@@ -38,6 +42,8 @@ class Scene {
 		Camera camera;
 		int width;
 		int height;
+		int maxdepth;
+		std::string filename;
 };
 
 } /* namespace superboy */

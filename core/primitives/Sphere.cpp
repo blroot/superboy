@@ -7,6 +7,7 @@
 
 #include "Sphere.h"
 #include <math.h>
+#include "../../utils/math/mat4.h"
 
 namespace superboy {
 
@@ -17,13 +18,29 @@ namespace superboy {
 		this->materials = Materials();
 	}
 
+	void Sphere::applyTransform() {
+
+
+	}
+
 	float Sphere::intersect(Ray ray) {
 
 		float intersection = 0.0f;
+		vec3 ray_direction = ray.getDirection();
+		vec3 ray_origin = ray.getEye();
+		mat4 inverse_transform;
 
-		float a = ray.getDirection().dot(ray.getDirection());
-		float b = 2*(ray.getDirection().dot(ray.getEye() - this->center));
-		float c = ((ray.getEye() - this->center).dot(ray.getEye() - this->center)) - this->radius*this->radius;
+		if (this->transform != mat4(1.0f)) {
+
+			inverse_transform = this->transform.inverse();
+
+			ray_direction = inverse_transform * ray.getDirection();
+			ray_origin = inverse_transform * ray.getEye();
+		}
+
+		float a = ray_direction.dot(ray_direction);
+		float b = 2*(ray_direction.dot(ray_origin - this->center));
+		float c = ((ray_origin - this->center).dot(ray_origin - this->center)) - this->radius*this->radius;
 
 		float discriminant = b*b - 4*a*c;
 

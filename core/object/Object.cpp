@@ -23,4 +23,14 @@ namespace superboy {
 		return this->materials;
 	}
 
+	mat4& Object::getTranform() {
+
+		return this->transform;
+	}
+
+	void Object::setTransform(mat4 transform) {
+
+		this->transform = transform;
+	}
+
 }
