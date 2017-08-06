@@ -84,8 +84,9 @@ namespace superboy {
 			if (distance1 < distance2) {
 
 				this->normal = -1*this->normal;
-				fix_normal = false;
 			}
+
+			fix_normal = false;
 		}
 
 		return this->normal;
