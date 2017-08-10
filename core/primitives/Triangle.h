@@ -18,6 +18,7 @@ namespace superboy {
 			float intersect(Ray ray);
 			void applyTransform();
 			vec3 getNormal(Ray& ray, float& point);
+			vec3 getPoint(Ray& ray, float& lambda);
 			vec3& getA();
 			vec3& getC();
 			vec3& getB();

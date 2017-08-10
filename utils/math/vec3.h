@@ -23,6 +23,7 @@ namespace math {
 
 		float dot(vec3 vector) const;
 		bool operator==(const vec3 &vector);
+		bool operator!=(const vec3 &vector);
 		vec3 operator+(vec3 right);
 		vec3& operator+=(vec3 right);
 		vec3 operator-(vec3 right);

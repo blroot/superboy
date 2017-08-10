@@ -22,6 +22,7 @@ namespace superboy {
 			float intersect(Ray ray);
 			void applyTransform();
 			vec3 getNormal(Ray& ray, float& point);
+			vec3 getPoint(Ray& ray, float& lambda);
 			vec3 getCenter();
 		private:
 			vec3 center;

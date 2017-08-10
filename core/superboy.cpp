@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 			#pragma omp critical
 			{
 				pixels_processed++;
-				printProgress(total_pixels, pixels_processed);
+				//printProgress(total_pixels, pixels_processed);
 			}
 		}
 	}

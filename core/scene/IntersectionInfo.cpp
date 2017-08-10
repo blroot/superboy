@@ -9,10 +9,11 @@
 
 namespace superboy {
 
-	IntersectionInfo::IntersectionInfo(float minimum_distance, vec3 normal, Ray& ray, std::shared_ptr<Object> hitobject) {
+	IntersectionInfo::IntersectionInfo(float minimum_distance, vec3 normal, vec3 hitpoint, Ray& ray, std::shared_ptr<Object> hitobject) {
 
 		this->minimum_distance = minimum_distance;
 		this->hitobject = hitobject;
+		this->hitpoint = hitpoint;
 		this->normal = normal;
 		this->ray = &ray;
 	}
@@ -22,6 +23,7 @@ namespace superboy {
 		this->minimum_distance = 0;
 		this->hitobject = 0;
 		this->normal = vec3();
+		this->hitpoint = vec3();
 		this->ray = 0;
 	}
 
@@ -38,6 +40,11 @@ namespace superboy {
 	vec3& IntersectionInfo::getNormal() {
 
 		return this->normal;
+	}
+
+	vec3& IntersectionInfo::getPoint() {
+
+		return this->hitpoint;
 	}
 
 	Ray* IntersectionInfo::getRay() {

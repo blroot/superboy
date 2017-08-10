@@ -45,6 +45,10 @@ namespace math {
 		return this->x == vector.x && this->y == vector.y && this->z == vector.z;
 	}
 
+	bool vec3::operator!=(const vec3 &vector) {
+		return this->x != vector.x || this->y != vector.y || this->z != vector.z;
+	}
+
 	vec3 vec3::operator+(vec3 right) {
 		return vec3(this->x + right.x, this->y + right.y, this->z + right.z);
 	}

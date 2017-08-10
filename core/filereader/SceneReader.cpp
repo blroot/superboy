@@ -232,6 +232,7 @@ namespace superboy {
 							sphere->getMaterials().setShininess(this->shininess);
 							sphere->getMaterials().setEmission(this->emission);
 							sphere->setTransform(transfstack.top());
+							sphere->applyTransform();
 							scene.addObject(sphere);
 
 							std::cout << "Adding sphere to scene with center: " << center << " radius: " << radius << std::endl;

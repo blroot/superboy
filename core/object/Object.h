@@ -20,6 +20,7 @@ namespace superboy {
 
 			virtual float intersect(Ray ray) =0;
 			virtual vec3 getNormal(Ray& ray, float& point) =0;
+			virtual vec3 getPoint(Ray& ray, float& lambda) =0;
 			void setTransform(mat4 transform);
 			virtual void applyTransform() =0;
 			Materials& getMaterials();

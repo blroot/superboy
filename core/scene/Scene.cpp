@@ -71,12 +71,14 @@ namespace superboy {
 		}
 
 		vec3 normal = vec3();
+		vec3 hitpoint = vec3();
 
 		if (hitobject != NULL) {
 			normal = hitobject->getNormal(ray, minimum_distance);
+			hitpoint = hitobject->getPoint(ray, minimum_distance);
 		}
 
-		return IntersectionInfo(minimum_distance, normal, ray, hitobject);
+		return IntersectionInfo(minimum_distance, normal, hitpoint, ray, hitobject);
 	}
 
 	std::vector< std::shared_ptr<Object> >& Scene::getObjects() {

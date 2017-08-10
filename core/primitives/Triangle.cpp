@@ -17,7 +17,7 @@ namespace superboy {
 		this->C = C;
 
 		this->materials = Materials();
-		this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
+		this->normal = (this->B-this->A).cross(this->C-this->A).normalize();
 		this->fix_normal = true;
 	}
 
@@ -36,7 +36,7 @@ namespace superboy {
 		this->B += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
 		this->C += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
 
-		this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
+		this->normal = (this->B-this->A).cross(this->C-this->A).normalize();
 		this->fix_normal = true;
 	}
 
@@ -76,21 +76,28 @@ namespace superboy {
 		// Always return a normal facing to the camera
 		// Only run once per triangle
 
-		if (fix_normal) {
+		//if (fix_normal) {
 
-			float distance1 = (this->normal+ray.getEye()).norm();
-			float distance2 = (-1*this->normal+ray.getEye()).norm();
+		//	float distance1 = (this->normal+ray.getEye()).norm();
+		//	float distance2 = (-1*this->normal+ray.getEye()).norm();
 
-			if (distance1 < distance2) {
+		//	if (distance1 < distance2) {
 
-				this->normal = -1*this->normal;
-			}
+		//		this->normal = -1*this->normal;
+		//		fix_normal = false;
+		//	}
 
-			fix_normal = false;
-		}
+			//fix_normal = false;
+		//}
 
 		return this->normal;
 
+	}
+
+	vec3 Triangle::getPoint(Ray &ray, float &lambda) {
+
+		// Get a little closer to light to overcome numerical errors
+		return ray.getEye() + ray.getDirection()*(lambda-1e-4);
 	}
 
 	vec3& Triangle::getA() {

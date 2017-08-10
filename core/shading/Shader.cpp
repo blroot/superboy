@@ -32,15 +32,17 @@ namespace superboy {
 
 		vec3 surface_normal = intersection.getNormal();
 
-		vec3 hitpoint = intersection.getRay()->getPoint(intersection.getMinimumDistance());
+		vec3 hitpoint = intersection.getPoint();
 
 		// Reflection Ray
-		vec3 mirror_vector = intersection.getRay()->getDirection() - 2*(intersection.getRay()->getDirection().dot(surface_normal))*surface_normal;
-		Ray ray_from_mirror = Ray(hitpoint, mirror_vector);
-		IntersectionInfo mirror_intersection = scene->intersect(ray_from_mirror);
+		if (intersection.getHitObject()->getMaterials().getSpecular() != color()) {
+			vec3 mirror_vector = intersection.getRay()->getDirection() - 2*(intersection.getRay()->getDirection().dot(surface_normal))*surface_normal;
+			Ray ray_from_mirror = Ray(hitpoint, mirror_vector);
+			IntersectionInfo mirror_intersection = scene->intersect(ray_from_mirror);
 
-		if (mirror_intersection.getHitObject() != nullptr) {
-			colorvec += computeColor(mirror_intersection, recursion_depth-1);
+			if (mirror_intersection.getHitObject() != nullptr) {
+				colorvec += computeColor(mirror_intersection, recursion_depth-1);
+			}
 		}
 
 		// Refraction Ray
@@ -52,7 +54,7 @@ namespace superboy {
 
 	color Shader::colorModel(IntersectionInfo &intersection) {
 
-		vec3 hitpoint = intersection.getRay()->getPoint(intersection.getMinimumDistance());
+		vec3 hitpoint = intersection.getPoint();
 
 		color diffuse = intersection.getHitObject()->getMaterials().getDiffuse();
 		color specular = intersection.getHitObject()->getMaterials().getSpecular();

@@ -80,6 +80,10 @@ namespace superboy {
 		return this->x == vector.x && this->y == vector.y && this->z == vector.z;
 	}
 
+	bool color::operator!=(const color &vector) {
+		return this->x != vector.x || this->y != vector.y || this->z != vector.z;
+	}
+
 	color color::operator+(color right) {
 		return color(this->x + right.x, this->y + right.y, this->z + right.z);
 	}

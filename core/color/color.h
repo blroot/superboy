@@ -22,6 +22,7 @@ namespace superboy {
 		color(float x, float y, float z);
 
 		bool operator==(const color &vector);
+		bool operator!=(const color &vector);
 		color operator+(color right);
 		color& operator+=(color right);
 		color operator-(color right);
