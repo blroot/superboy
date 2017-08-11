@@ -8,6 +8,7 @@
 #include "Sphere.h"
 #include <math.h>
 #include "../../utils/math/mat4.h"
+#include "../../utils/math/vec4.h"
 #include <iostream>
 
 namespace superboy {
@@ -21,7 +22,7 @@ namespace superboy {
 
 	void Sphere::applyTransform() {
 
-		this->center += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
+
 	}
 
 	float Sphere::intersect(Ray ray) {
@@ -35,8 +36,8 @@ namespace superboy {
 
 			inverse_transform = this->transform.inverse();
 
-			ray_direction = inverse_transform * ray.getDirection();
-			ray_origin = inverse_transform * ray.getEye();
+			ray_direction = inverse_transform * vec4(ray.getDirection(), 0.0f);
+			ray_origin = inverse_transform * vec4(ray.getEye(), 1.0f);
 		}
 
 		float a = ray_direction.dot(ray_direction);
@@ -72,8 +73,15 @@ namespace superboy {
 
 		if (this->transform != mat4(1.0f)) {
 
-			//std::cout << this->transform.transpose()*((ray.getEye() + ray.getDirection()*point)-this->center).normalize() << std::endl;
-			return this->transform.transpose()*((ray.getEye() + ray.getDirection()*point)-this->center).normalize();
+			//vec4 position = vec4((ray.getEye() + ray.getDirection()*point), 1.0f);
+			//return vec3(this->transform.inverse().transpose() * (position-vec4(this->center, 1.0f))).normalize();
+
+			vec3 eye = this->transform.transpose() * vec4(ray.getEye(), 1.0f);
+			vec3 direction = this->transform.transpose() * vec4(ray.getDirection(), 0.0f);
+
+		//	std::cout << ((eye + direction*point)-this->center).normalize() << std::endl;
+
+			return ((eye + direction*point)-this->center).normalize();
 		}
 
 		return ((ray.getEye() + ray.getDirection()*point)-this->center).normalize();
@@ -85,7 +93,7 @@ namespace superboy {
 
 		if (this->transform != mat4(1.0f)) {
 
-			vec3 point = ((ray.getEye() + ray.getDirection()*(lambda-1e-4))) + vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
+			vec4 point = vec4(ray.getEye() + ray.getDirection()*(lambda-1e-4), 1.0f);
 			return this->transform*point;
 		}
 

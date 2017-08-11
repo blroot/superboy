@@ -338,6 +338,14 @@ namespace math {
 				this->elements[2]*vector.x + this->elements[6]*vector.y + this->elements[10]*vector.z);
 	}
 
+	vec4 mat4::operator*(const vec4& vector) {
+
+		return vec4(this->elements[0]*vector.x + this->elements[4]*vector.y + this->elements[8]*vector.z + this->elements[12]*vector.w,
+				this->elements[1]*vector.x + this->elements[5]*vector.y + this->elements[9]*vector.z + this->elements[13]*vector.w,
+				this->elements[2]*vector.x + this->elements[6]*vector.y + this->elements[10]*vector.z + this->elements[14]*vector.w,
+				this->elements[3]*vector.x + this->elements[7]*vector.y + this->elements[11]*vector.z + this->elements[15]*vector.w);
+	}
+
 	mat4& mat4::operator=(mat4 matrix) {
 
 		for (int i = 0; i < 16; i++)  {

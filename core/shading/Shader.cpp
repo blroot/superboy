@@ -78,6 +78,7 @@ namespace superboy {
 			Ray ray_to_light = Ray(hitpoint, light_direction);
 			IntersectionInfo light_intersection = scene->intersect(ray_to_light);
 
+
 			if (light_intersection.getHitObject() == nullptr) {
 
 				color diff_light = color(diffuse.x * lightcolor.x, diffuse.y * lightcolor.y, diffuse.z * lightcolor.z);
@@ -85,6 +86,9 @@ namespace superboy {
 
 				color lambert = diff_light * std::max(surface_normal.normalize().dot(light_direction.normalize()), 0.0f);
 				color phong = spec_light * pow(std::max(surface_normal.dot(halfvec), 0.0f), intersection.getHitObject()->getMaterials().getShininess());
+
+				std::cout << "S.Normal: " << surface_normal << std::endl;
+				std::cout << "Phong: " << phong << std::endl;
 
 				//colorvec += (1/attenuation_model) * (lambert + phong);
 				colorvec += lambert + phong;

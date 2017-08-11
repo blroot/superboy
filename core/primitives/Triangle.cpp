@@ -5,6 +5,7 @@
  *      Author: blroot
  */
 
+#include "../../utils/math/vec4.h"
 #include "Triangle.h"
 #include <iostream>
 
@@ -27,17 +28,14 @@ namespace superboy {
 
 	void Triangle::applyTransform() {
 
-		this->A = this->transform * this->A;
-		this->B = this->transform * this->B;
-		this->C = this->transform * this->C;
+		// Apply transforms using homogeneous coordinates
 
-		// Translation - Since we're not using homogeneous coordinates, we do this this way
-		this->A += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
-		this->B += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
-		this->C += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
+		this->A = this->transform * vec4(this->A, 1.0f);
+		this->B = this->transform * vec4(this->B, 1.0f);
+		this->C = this->transform * vec4(this->C, 1.0f);
 
 		this->normal = (this->B-this->A).cross(this->C-this->A).normalize();
-		this->fix_normal = true;
+
 	}
 
 	float Triangle::intersect(Ray ray) {

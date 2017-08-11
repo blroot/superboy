@@ -6,6 +6,7 @@
  */
 
 #include "vec3.h"
+#include "vec4.h"
 #include <math.h>
 
 namespace math {
@@ -20,6 +21,13 @@ namespace math {
 		this->x = x;
 		this->y = y;
 		this->z = z;
+	}
+
+	vec3::vec3(const vec4 &fourvec) {
+
+		this->x = fourvec.x;
+		this->y = fourvec.y;
+		this->z = fourvec.z;
 	}
 
 	vec3 vec3::cross(vec3 vector) const {

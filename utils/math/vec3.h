@@ -8,9 +8,12 @@
 
 #pragma once
 
+#include "vec4.h"
 #include <ostream>
 
 namespace math {
+
+	struct vec4;
 
 	struct vec3 {
 
@@ -20,6 +23,7 @@ namespace math {
 
 		vec3();
 		vec3(float x, float y, float z);
+		vec3(const vec4& fourvec);
 
 		float dot(vec3 vector) const;
 		bool operator==(const vec3 &vector);
