@@ -71,25 +71,7 @@ namespace superboy {
 
 	vec3 Triangle::getNormal(Ray &ray, float &point) {
 
-		// Always return a normal facing to the camera
-		// Only run once per triangle
-
-		//if (fix_normal) {
-
-		//	float distance1 = (this->normal+ray.getEye()).norm();
-		//	float distance2 = (-1*this->normal+ray.getEye()).norm();
-
-		//	if (distance1 < distance2) {
-
-		//		this->normal = -1*this->normal;
-		//		fix_normal = false;
-		//	}
-
-			//fix_normal = false;
-		//}
-
 		return this->normal;
-
 	}
 
 	vec3 Triangle::getPoint(Ray &ray, float &lambda) {

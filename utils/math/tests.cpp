@@ -307,6 +307,27 @@ TEST(Mat4Test, Inverse) {
 	ASSERT_FLOAT_EQ(C.elements[15], 1.0f);
 }
 
+TEST(Mat4Test, Inverse2) {
+	mat4 C = mat4(1.0f, 2.0f, 8.0f, 2.0f, 1.0f, 3.0f, 1.0f, 2.0f, 2.0f, 4.0f, 2.0f, 2.0f, 1.0f, 5.0f, 2.0f, 2.0f).inverse();
+
+	ASSERT_FLOAT_EQ(C.elements[0], -1.0f/15.0f);
+	ASSERT_FLOAT_EQ(C.elements[1], -1.0f/15.0f);
+	ASSERT_FLOAT_EQ(C.elements[2], 2.0f/15.0f);
+	ASSERT_FLOAT_EQ(C.elements[3], 1.0f/15.0f);
+	ASSERT_FLOAT_EQ(C.elements[4], -2.0f/5.0f);
+	ASSERT_FLOAT_EQ(C.elements[5], -2.0f/5.0f);
+	ASSERT_FLOAT_EQ(C.elements[6], -1.0f/5.0f);
+	ASSERT_FLOAT_EQ(C.elements[7], 7.0f/5.0f);
+	ASSERT_FLOAT_EQ(C.elements[8], 1.0f);
+	ASSERT_FLOAT_EQ(C.elements[9], 0.0f);
+	ASSERT_FLOAT_EQ(C.elements[10], 0.0f);
+	ASSERT_FLOAT_EQ(C.elements[11], -0.5f);
+	ASSERT_FLOAT_EQ(C.elements[12], -8.0f/15.0f);
+	ASSERT_FLOAT_EQ(C.elements[13], 7.0f/15.0f);
+	ASSERT_FLOAT_EQ(C.elements[14], 1.0f/15.0f);
+	ASSERT_FLOAT_EQ(C.elements[15], -7.0f/15.0f);
+}
+
 TEST(Mat4Test, Determinant) {
 	mat4 C = mat4(1.0f, 2.0f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 4.0f, 2.0f, 2.0f, 1.0f, 1.0f, 2.0f, 2.0f);
 

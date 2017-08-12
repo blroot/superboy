@@ -11,8 +11,8 @@ tests:tests
 
 superboy: mkbuild build/vec3.o build/vec4.o build/mat4.o build/superboy.o build/color.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Point.o build/Materials.o build/Shader.o build/SceneReader.o
 	$(CC) $(CFLAGS)-o superboy build/vec3.o build/vec4.o build/mat4.o build/color.o build/superboy.o build/Image.o build/Camera.o build/Ray.o build/Sphere.o build/Scene.o build/IntersectionInfo.o build/Object.o build/Triangle.o build/Light.o build/Directional.o build/Point.o build/Materials.o build/Shader.o build/SceneReader.o $(INCFLAGS) $(LDFLAGS)
-tests: build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread
-	$(CC) $(CFLAGS) -o tests build/mat3.o build/vec3.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread $(INCFLAGS) $(LDFLAGS)
+tests: build/mat3.o build/vec3.o build/vec4.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread
+	$(CC) $(CFLAGS) -o tests build/mat3.o build/vec3.o build/vec4.o build/mat4.o utils/math/tests.cpp /usr/lib/libgtest.a /usr/lib/libgtest_main.a -lpthread $(INCFLAGS) $(LDFLAGS)
 build/mat3.o: utils/math/mat3.h 
 	$(CC) $(CFLAGS) $(INCFLAGS) -c utils/math/mat3.cpp -o build/mat3.o
 build/mat4.o: utils/math/mat4.h 

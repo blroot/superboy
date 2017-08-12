@@ -73,15 +73,10 @@ namespace superboy {
 
 		if (this->transform != mat4(1.0f)) {
 
-			//vec4 position = vec4((ray.getEye() + ray.getDirection()*point), 1.0f);
-			//return vec3(this->transform.inverse().transpose() * (position-vec4(this->center, 1.0f))).normalize();
+			vec3 eye = this->transform.transpose().inverse() * vec4(ray.getEye(), 1.0f);
+			vec3 direction = this->transform.transpose().inverse() * vec4(ray.getDirection(), 0.0f);
 
-			vec3 eye = this->transform.transpose() * vec4(ray.getEye(), 1.0f);
-			vec3 direction = this->transform.transpose() * vec4(ray.getDirection(), 0.0f);
-
-		//	std::cout << ((eye + direction*point)-this->center).normalize() << std::endl;
-
-			return ((eye + direction*point)-this->center).normalize();
+			return ((eye + direction*(point-1e-4))-this->center).normalize();
 		}
 
 		return ((ray.getEye() + ray.getDirection()*point)-this->center).normalize();
@@ -93,7 +88,7 @@ namespace superboy {
 
 		if (this->transform != mat4(1.0f)) {
 
-			vec4 point = vec4(ray.getEye() + ray.getDirection()*(lambda-1e-4), 1.0f);
+			vec3 point = ray.getEye() + ray.getDirection()*(lambda-1e-4);
 			return this->transform*point;
 		}
 
