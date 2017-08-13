@@ -10,6 +10,7 @@
 #include "../camera/Ray.h"
 #include "../object/Object.h"
 #include "../../utils/math/vec3.h"
+#include "../../utils/math/mat4.h"
 
 using namespace math;
 
@@ -21,12 +22,13 @@ namespace superboy {
 			virtual ~Sphere();
 			float intersect(Ray ray);
 			void applyTransform();
-			vec3 getNormal(Ray& ray, float& point);
+			vec3 getNormal(Ray& ray, float& lambda);
 			vec3 getPoint(Ray& ray, float& lambda);
 			vec3 getCenter();
 		private:
 			vec3 center;
 			float radius;
+			mat4 inverse_transform;
 	};
 
 } /* namespace superboy */

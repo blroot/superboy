@@ -18,11 +18,15 @@ namespace superboy {
 		this->center = center;
 		this->radius = radius;
 		this->materials = Materials();
+		this->inverse_transform;
 	}
 
 	void Sphere::applyTransform() {
 
+		this->inverse_transform = this->transform.inverse();
 
+		std::cout << "Transform: " << this->transform << std::endl;
+		std::cout << "Inverse Transform: " << this->inverse_transform << std::endl;
 	}
 
 	float Sphere::intersect(Ray ray) {
@@ -34,10 +38,11 @@ namespace superboy {
 
 		if (this->transform != mat4(1.0f)) {
 
-			inverse_transform = this->transform.inverse();
+			//inverse_transform = this->transform.inverse();
 
-			ray_direction = inverse_transform * vec4(ray.getDirection(), 0.0f);
-			ray_origin = inverse_transform * vec4(ray.getEye(), 1.0f);
+			ray_direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
+			ray_direction = ray_direction.normalize();
+			ray_origin = this->inverse_transform * vec4(ray.getEye(), 1.0f);
 		}
 
 		float a = ray_direction.dot(ray_direction);
@@ -69,17 +74,22 @@ namespace superboy {
 		return intersection;
 	}
 
-	vec3 Sphere::getNormal(Ray& ray, float& point) {
+	vec3 Sphere::getNormal(Ray& ray, float& lambda) {
 
 		if (this->transform != mat4(1.0f)) {
 
-			vec3 eye = this->transform.transpose().inverse() * vec4(ray.getEye(), 1.0f);
-			vec3 direction = this->transform.transpose().inverse() * vec4(ray.getDirection(), 0.0f);
+			//vec3 eye = this->inverse_transform.transpose() * vec4(ray.getEye(), 1.0f);
+			//vec3 direction = this->inverse_transform.transpose() * vec4(ray.getDirection(), 0.0f);
 
-			return ((eye + direction*(point-1e-4))-this->center).normalize();
+			vec3 eye = this->inverse_transform * vec4(ray.getEye(), 1.0f);
+			vec3 direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
+
+			vec3 normal = (eye + direction.normalize()*lambda)-this->center;
+
+			return normal.normalize();
 		}
 
-		return ((ray.getEye() + ray.getDirection()*point)-this->center).normalize();
+		return ((ray.getEye() + ray.getDirection()*lambda)-this->center).normalize();
 	}
 
 	vec3 Sphere::getPoint(Ray& ray, float& lambda) {
@@ -88,8 +98,12 @@ namespace superboy {
 
 		if (this->transform != mat4(1.0f)) {
 
-			vec3 point = ray.getEye() + ray.getDirection()*(lambda-1e-4);
-			return this->transform*point;
+			vec3 eye = this->inverse_transform * vec4(ray.getEye(), 1.0f);
+			vec3 direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
+
+			vec3 point = eye + direction.normalize()*(lambda-1e-4);
+			point = this->transform * vec4(point, 1.0f);
+			return point;
 		}
 
 		return ray.getEye() + ray.getDirection()*(lambda-1e-4);

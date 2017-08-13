@@ -17,7 +17,7 @@ namespace superboy {
 			virtual ~Triangle();
 			float intersect(Ray ray);
 			void applyTransform();
-			vec3 getNormal(Ray& ray, float& point);
+			vec3 getNormal(Ray& ray, float& lambda);
 			vec3 getPoint(Ray& ray, float& lambda);
 			vec3& getA();
 			vec3& getC();

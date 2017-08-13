@@ -69,7 +69,7 @@ namespace superboy {
 		return intersection;
 	}
 
-	vec3 Triangle::getNormal(Ray &ray, float &point) {
+	vec3 Triangle::getNormal(Ray &ray, float &lambda) {
 
 		return this->normal;
 	}

@@ -35,6 +35,7 @@ namespace math {
 		mat4 operator*(float scalar);
 		friend mat4 operator*(float scalar, const mat4& matrix);
 		friend mat4 operator*(int scalar, const mat4& matrix);
+		friend std::ostream& operator<<(std::ostream& stream, const mat4& matrix);
 		vec3 operator*(const vec3& vector);
 		vec4 operator*(const vec4& vector);
 		mat4& operator=(mat4 matrix);

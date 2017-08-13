@@ -369,4 +369,12 @@ namespace math {
 		return !this->operator==(matrix);
 	}
 
+	std::ostream& operator<<(std::ostream& stream, const mat4& matrix) {
+		stream << "mat4: {{" << matrix.elements[0] << ", " << matrix.elements[4] << ", " << matrix.elements[8] << ", " << matrix.elements[12] <<
+				"}, {" << matrix.elements[1] << ", " << matrix.elements[5] << ", " << matrix.elements[9] << ", " << matrix.elements[13] <<
+				"}, {" << matrix.elements[2] << ", " << matrix.elements[6] << ", " << matrix.elements[10] << ", " << matrix.elements[14] <<
+				"}, {" << matrix.elements[3] << ", " << matrix.elements[7] << ", " << matrix.elements[11] << ", " << matrix.elements[15] << "}}";
+		return stream;
+	}
+
 }
