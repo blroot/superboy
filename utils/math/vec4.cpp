@@ -78,4 +78,9 @@ namespace math {
 		return vec4(scalar * vector.x, scalar * vector.y, scalar * vector.z, scalar * vector.w);
 	}
 
+	std::ostream& operator<<(std::ostream& stream, const vec4& vector) {
+		stream << "vec4: (" << vector.x << ", " << vector.y << ", " << vector.z << ", " << vector.w << ")";
+		return stream;
+	}
+
 } /* namespace superboy */

@@ -7,6 +7,7 @@
 
 #include <gtest/gtest.h>
 #include "vec3.h"
+#include "vec4.h"
 #include "mat3.h"
 #include "mat4.h"
 
@@ -339,6 +340,18 @@ TEST(Mat4Test, DiagonalDeterminant) {
 
 	ASSERT_FLOAT_EQ(M.determinant(), 1.0f);
 }
+
+TEST(Mat4Test, Mat4XVec4) {
+	mat4 M = mat4(1.0f, 2.0f, 3.0f, 5.0f, 2.0f, 3.0f, 6.0f, 2.0f, 3.0f, 5.0f, 1.0f, 2.0f, 6.0f, 1.0f, 9.0f, 11.0f);
+	vec4 v = vec4(8.0f, 2.5f, 3.0f, 1.0f);
+	v = M*v;
+
+	ASSERT_FLOAT_EQ(v.x, 27.0f);
+	ASSERT_FLOAT_EQ(v.y, 43.5f);
+	ASSERT_FLOAT_EQ(v.z, 41.5f);
+	ASSERT_FLOAT_EQ(v.w, 88.5f);
+}
+
 
 
 int main(int argc, char **argv) {

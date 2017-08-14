@@ -209,6 +209,7 @@ namespace superboy {
 
 							std::cout << "Adding triangle to scene with vertices: " << vertex_buffer[values[0]]
 										<< " " << vertex_buffer[values[1]] << " " << vertex_buffer[values[2]] << std::endl;
+							std::cout << "Setting triangle transform:" << transfstack.top() << std::endl;
 							std::cout << "Setting triangle ambient to: " << this->ambient << std::endl;
 							std::cout << "Setting triangle diffuse to: " << this->diffuse << std::endl;
 							std::cout << "Setting triangle specular to: " << this->specular << std::endl;
@@ -236,6 +237,7 @@ namespace superboy {
 							scene.addObject(sphere);
 
 							std::cout << "Adding sphere to scene with center: " << center << " radius: " << radius << std::endl;
+							std::cout << "Setting sphere transform: " << transfstack.top() << std::endl;
 							std::cout << "Setting sphere ambient to: " << this->ambient << std::endl;
 							std::cout << "Setting sphere diffuse to: " << this->diffuse << std::endl;
 							std::cout << "Setting sphere specular to: " << this->specular << std::endl;
@@ -266,6 +268,7 @@ namespace superboy {
 						if (valid_input) {
 
 							mat4 translation_matrix = mat4().translate(values[0], values[1], values[2]);
+							std::cout << "Translation Matrix -> " << translation_matrix << std::endl;
 							mat4 &top_matrix = transfstack.top();
 							top_matrix = top_matrix * translation_matrix;
 							std::cout << "Applying transform -> Translating: " << vec3(values[0], values[1], values[2]) << std::endl;
@@ -278,10 +281,7 @@ namespace superboy {
 						if (valid_input) {
 
 							mat4 scale_matrix = mat4().scale(values[0], values[1], values[2]);
-							std::cout << scale_matrix.elements[0] << std::endl;
-							std::cout << scale_matrix.elements[1] << std::endl;
-							std::cout << scale_matrix.elements[2] << std::endl;
-							std::cout << scale_matrix.elements[3] << std::endl;
+							std::cout << "Scale Matrix -> " << scale_matrix << std::endl;
 							mat4 &top_matrix = transfstack.top();
 							top_matrix = top_matrix * scale_matrix;
 							std::cout << "Applying transform -> Scaling: " << vec3(values[0], values[1], values[2]) << std::endl;
@@ -296,6 +296,7 @@ namespace superboy {
 							vec3 axis = vec3(values[0], values[1], values[2]);
 
 							mat4 rotation_matrix = mat4().rotate(values[3], axis);
+							std::cout << "Rotation Matrix -> " << rotation_matrix << std::endl;
 							mat4 &top_matrix = transfstack.top();
 							top_matrix = top_matrix * rotation_matrix;
 							std::cout << "Applying transform -> Rotating: axis:" << axis << " angle:" << values[3] << std::endl;

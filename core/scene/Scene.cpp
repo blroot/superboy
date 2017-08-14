@@ -73,7 +73,7 @@ namespace superboy {
 		vec3 normal = vec3();
 		vec3 hitpoint = vec3();
 
-		if (hitobject != NULL) {
+		if (hitobject != nullptr) {
 			normal = hitobject->getNormal(ray, minimum_distance);
 			hitpoint = hitobject->getPoint(ray, minimum_distance);
 		}

@@ -24,9 +24,6 @@ namespace superboy {
 	void Sphere::applyTransform() {
 
 		this->inverse_transform = this->transform.inverse();
-
-		std::cout << "Transform: " << this->transform << std::endl;
-		std::cout << "Inverse Transform: " << this->inverse_transform << std::endl;
 	}
 
 	float Sphere::intersect(Ray ray) {
@@ -34,11 +31,8 @@ namespace superboy {
 		float intersection = 0.0f;
 		vec3 ray_direction = ray.getDirection();
 		vec3 ray_origin = ray.getEye();
-		mat4 inverse_transform;
 
 		if (this->transform != mat4(1.0f)) {
-
-			//inverse_transform = this->transform.inverse();
 
 			ray_direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
 			ray_direction = ray_direction.normalize();
@@ -53,22 +47,29 @@ namespace superboy {
 
 		// No real roots - no intersection
 		// Both roots equal: ray tangent to sphere. I decide to set no intersection
-		if (discriminant >= 0) {
+		if (discriminant >= 0.0f) {
 			// Compute roots
 			float first_root = (-b + sqrt(discriminant))/2*a;
 			float second_root = (-b - sqrt(discriminant))/2*a;
 
-			if (first_root > 0 and second_root > 0) {
+			if (first_root > 0.0f and second_root > 0.0f) {
 				if (first_root > second_root) {
 					intersection = second_root;
 				} else {
 					intersection = first_root;
 				}
-			} else if (first_root < 0 and second_root > 0) {
+			} else if (first_root < 0.0f and second_root > 0.0f) {
 				intersection = second_root;
-			} else if (first_root > 0 and second_root < 0) {
+			} else if (first_root > 0.0f and second_root < 0.0f) {
 				intersection = first_root;
 			}
+		}
+
+		if (this->transform != mat4(1.0f)) {
+
+			vec4 point = vec4(ray_origin + ray_direction*(intersection), 1.0f);
+			point = this->transform * point;
+			intersection = (vec3(point) - ray.getEye()).norm();
 		}
 
 		return intersection;
@@ -85,6 +86,7 @@ namespace superboy {
 			vec3 direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
 
 			vec3 normal = (eye + direction.normalize()*lambda)-this->center;
+			normal = this->inverse_transform.transpose()*vec4(normal, 0.0f);
 
 			return normal.normalize();
 		}

@@ -65,6 +65,7 @@ namespace superboy {
 		colorvec += intersection.getHitObject()->getMaterials().getAmbient();
 		colorvec += intersection.getHitObject()->getMaterials().getEmission();
 
+
 		for (int i = 0; i < this->scene->getLights().size(); i++) {
 
 			vec3 light_direction = this->scene->getLights()[i]->getDirection(hitpoint);
@@ -87,7 +88,7 @@ namespace superboy {
 				color lambert = diff_light * std::max(surface_normal.normalize().dot(light_direction.normalize()), 0.0f);
 				color phong = spec_light * pow(std::max(surface_normal.dot(halfvec), 0.0f), intersection.getHitObject()->getMaterials().getShininess());
 
-				//colorvec += (1/attenuation_model) * (lambert + phong);
+				//colorvec += (1.0f/attenuation_model) * (lambert + phong);
 				colorvec += lambert + phong;
 			}
 
