@@ -91,6 +91,16 @@ namespace superboy {
 							std::cout << "Setting output filename to: " << values[0] << std::endl;
 						}
 
+					} else if (command == "maxdepth") {
+
+						valid_input = this->readvals(s, 1, values);
+
+						if (valid_input) {
+
+							scene.setMaxdepth(values[0]);
+							std::cout << "Setting recursion depth to: " << values[0] << std::endl;
+						}
+
 					} else if (command == "ambient") {
 
 						valid_input = this->readvals(s, 3, values);

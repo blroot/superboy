@@ -79,9 +79,6 @@ namespace superboy {
 
 		if (this->transform != mat4(1.0f)) {
 
-			//vec3 eye = this->inverse_transform.transpose() * vec4(ray.getEye(), 1.0f);
-			//vec3 direction = this->inverse_transform.transpose() * vec4(ray.getDirection(), 0.0f);
-
 			vec3 eye = this->inverse_transform * vec4(ray.getEye(), 1.0f);
 			vec3 direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
 
@@ -96,19 +93,17 @@ namespace superboy {
 
 	vec3 Sphere::getPoint(Ray& ray, float& lambda) {
 
-		// Get a little closer to light to overcome numerical errors
-
 		if (this->transform != mat4(1.0f)) {
 
 			vec3 eye = this->inverse_transform * vec4(ray.getEye(), 1.0f);
 			vec3 direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
 
-			vec3 point = eye + direction.normalize()*(lambda-1e-4);
-			point = this->transform * vec4(point, 1.0f);
+			vec3 point = eye + direction.normalize()*(lambda);
+
 			return point;
 		}
 
-		return ray.getEye() + ray.getDirection()*(lambda-1e-4);
+		return ray.getEye() + ray.getDirection()*(lambda);
 	}
 
 	vec3 Sphere::getCenter() {

@@ -18,8 +18,8 @@ namespace superboy {
 		this->C = C;
 
 		this->materials = Materials();
-		//this->normal = (this->B-this->A).cross(this->C-this->A).normalize();
-		this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
+		this->normal = (this->B-this->A).cross(this->C-this->A).normalize();
+		//this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
 		this->fix_normal = true;
 	}
 
@@ -35,8 +35,8 @@ namespace superboy {
 		this->B = this->transform * vec4(this->B, 1.0f);
 		this->C = this->transform * vec4(this->C, 1.0f);
 
-		//this->normal = (this->B-this->A).cross(this->C-this->A).normalize();
-		this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
+		this->normal = (this->B-this->A).cross(this->C-this->A).normalize();
+		//this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
 
 	}
 
@@ -78,8 +78,7 @@ namespace superboy {
 
 	vec3 Triangle::getPoint(Ray &ray, float &lambda) {
 
-		// Get a little closer to light to overcome numerical errors
-		return ray.getEye() + ray.getDirection()*(lambda-1e-4);
+		return ray.getEye() + ray.getDirection()*(lambda);
 	}
 
 	vec3& Triangle::getA() {

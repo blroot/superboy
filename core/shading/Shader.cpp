@@ -75,8 +75,11 @@ namespace superboy {
 			vec3 attenuation = this->scene->getLights()[i]->getAttenuation();
 			float attenuation_model = attenuation.x + attenuation.y*distance_to_light + attenuation.z*(distance_to_light*distance_to_light);
 
+
 			// Shadow Ray
-			Ray ray_to_light = Ray(hitpoint, light_direction);
+			// TODO: Get a little closer to light to overcome numerical errors
+
+			Ray ray_to_light = Ray(hitpoint + surface_normal*1e-4, light_direction);
 			IntersectionInfo light_intersection = scene->intersect(ray_to_light);
 
 
