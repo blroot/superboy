@@ -59,9 +59,12 @@ namespace superboy {
 
 		float minimum_distance = INFINITY;
 		std::shared_ptr<Object> hitobject = nullptr;
-		Intersect intersection;
+		vec3 normal;
+		vec3 hitpoint;
 
 		for (int i = 0; i < this->objects.size(); i++) {
+
+			Intersect intersection;
 
 			intersection = this->objects[i]->intersect(ray);
 
@@ -69,18 +72,9 @@ namespace superboy {
 
 				minimum_distance = intersection.getDistance();
 				hitobject = this->objects[i];
+				normal = intersection.getNormal();
+				hitpoint = intersection.getHitpoint();
 			}
-		}
-
-		vec3 normal = vec3();
-		vec3 hitpoint = vec3();
-
-		if (hitobject != nullptr) {
-			//normal = hitobject->getNormal(ray, minimum_distance);
-			//hitpoint = hitobject->getPoint(ray, minimum_distance);
-
-			normal = intersection.getNormal();
-			hitpoint = intersection.getHitpoint();
 		}
 
 		return IntersectionInfo(minimum_distance, normal, hitpoint, ray, hitobject);
