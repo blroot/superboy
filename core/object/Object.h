@@ -5,11 +5,12 @@
  *      Author: blroot
  */
 
+#pragma once
+
 #include "../camera/Ray.h"
 #include "materials/Materials.h"
 #include "../../utils/math/mat4.h"
-
-#pragma once
+#include "../primitives/Intersect.h"
 
 namespace superboy {
 
@@ -18,7 +19,7 @@ namespace superboy {
 			Object();
 			virtual ~Object();
 
-			virtual float intersect(Ray ray) =0;
+			virtual Intersect intersect(Ray ray) =0;
 			virtual vec3 getNormal(Ray& ray, float& lambda) =0;
 			virtual vec3 getPoint(Ray& ray, float& lambda) =0;
 			void setTransform(mat4 transform);

@@ -54,11 +54,11 @@ namespace superboy {
 
 	color Shader::colorModel(IntersectionInfo &intersection) {
 
-		vec3 hitpoint = intersection.getPoint();
-
 		color diffuse = intersection.getHitObject()->getMaterials().getDiffuse();
 		color specular = intersection.getHitObject()->getMaterials().getSpecular();
 		vec3 surface_normal = intersection.getNormal();
+
+		vec3 hitpoint = intersection.getPoint();
 
 		// Ambient + Emission
 		color colorvec = color();
@@ -79,7 +79,7 @@ namespace superboy {
 			// Shadow Ray
 			// TODO: Get a little closer to light to overcome numerical errors
 
-			Ray ray_to_light = Ray(hitpoint + surface_normal*1e-4, light_direction);
+			Ray ray_to_light = Ray(hitpoint, light_direction);
 			IntersectionInfo light_intersection = scene->intersect(ray_to_light);
 
 

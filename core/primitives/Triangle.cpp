@@ -40,7 +40,7 @@ namespace superboy {
 
 	}
 
-	float Triangle::intersect(Ray ray) {
+	Intersect Triangle::intersect(Ray ray) {
 
 		float intersection = 0.0f;
 
@@ -68,7 +68,8 @@ namespace superboy {
 			intersection = t;
 		}
 
-		return intersection;
+		//return intersection;
+		return Intersect(intersection, this->getPoint(ray, intersection), this->normal);
 	}
 
 	vec3 Triangle::getNormal(Ray &ray, float &lambda) {
@@ -78,7 +79,7 @@ namespace superboy {
 
 	vec3 Triangle::getPoint(Ray &ray, float &lambda) {
 
-		return ray.getEye() + ray.getDirection()*(lambda);
+		return ray.getEye() + ray.getDirection()*(lambda-1e-4);
 	}
 
 	vec3& Triangle::getA() {

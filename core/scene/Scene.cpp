@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include <iostream>
 #include <math.h>
+#include "../primitives/Intersect.h"
 
 namespace superboy {
 
@@ -58,14 +59,15 @@ namespace superboy {
 
 		float minimum_distance = INFINITY;
 		std::shared_ptr<Object> hitobject = nullptr;
+		Intersect intersection;
 
 		for (int i = 0; i < this->objects.size(); i++) {
 
-			float t = this->objects[i]->intersect(ray);
+			intersection = this->objects[i]->intersect(ray);
 
-			if (t > 0.0f and t < minimum_distance) {
+			if (intersection.getDistance() > 0.0f and intersection.getDistance() < minimum_distance) {
 
-				minimum_distance = t;
+				minimum_distance = intersection.getDistance();
 				hitobject = this->objects[i];
 			}
 		}
@@ -74,8 +76,11 @@ namespace superboy {
 		vec3 hitpoint = vec3();
 
 		if (hitobject != nullptr) {
-			normal = hitobject->getNormal(ray, minimum_distance);
-			hitpoint = hitobject->getPoint(ray, minimum_distance);
+			//normal = hitobject->getNormal(ray, minimum_distance);
+			//hitpoint = hitobject->getPoint(ray, minimum_distance);
+
+			normal = intersection.getNormal();
+			hitpoint = intersection.getHitpoint();
 		}
 
 		return IntersectionInfo(minimum_distance, normal, hitpoint, ray, hitobject);

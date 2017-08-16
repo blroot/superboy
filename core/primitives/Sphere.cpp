@@ -26,18 +26,18 @@ namespace superboy {
 		this->inverse_transform = this->transform.inverse();
 	}
 
-	float Sphere::intersect(Ray ray) {
+	Intersect Sphere::intersect(Ray ray) {
 
 		float intersection = 0.0f;
 		vec3 ray_direction = ray.getDirection();
 		vec3 ray_origin = ray.getEye();
 
-		if (this->transform != mat4(1.0f)) {
+		//if (this->transform != mat4(1.0f)) {
 
 			ray_direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
 			ray_direction = ray_direction.normalize();
 			ray_origin = this->inverse_transform * vec4(ray.getEye(), 1.0f);
-		}
+		//}
 
 		float a = ray_direction.dot(ray_direction);
 		float b = 2*(ray_direction.dot(ray_origin - this->center));
@@ -65,14 +65,17 @@ namespace superboy {
 			}
 		}
 
-		if (this->transform != mat4(1.0f)) {
+		vec3 point = ray_origin + ray_direction*(intersection);
+		point = this->transform * vec4(point, 1.0f);
 
-			vec4 point = vec4(ray_origin + ray_direction*(intersection), 1.0f);
-			point = this->transform * point;
+		//if (this->transform != mat4(1.0f)) {
 			intersection = (vec3(point) - ray.getEye()).norm();
-		}
+		//}
 
-		return intersection;
+		vec3 normal = this->inverse_transform.transpose()* vec4(point-this->center, 1.0f);
+
+		//return intersection;
+		return Intersect(intersection, point + normal*1e-4, normal);
 	}
 
 	vec3 Sphere::getNormal(Ray& ray, float& lambda) {
@@ -85,6 +88,8 @@ namespace superboy {
 			vec3 normal = (eye + direction.normalize()*lambda)-this->center;
 			normal = this->inverse_transform.transpose()*vec4(normal, 0.0f);
 
+			//vec3 normal = this->getPoint(ray, lambda)-this->center;
+
 			return normal.normalize();
 		}
 
@@ -95,15 +100,16 @@ namespace superboy {
 
 		if (this->transform != mat4(1.0f)) {
 
-			vec3 eye = this->inverse_transform * vec4(ray.getEye(), 1.0f);
-			vec3 direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
+			//vec3 eye = this->inverse_transform * vec4(ray.getEye(), 1.0f);
+			//vec3 direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
 
-			vec3 point = eye + direction.normalize()*(lambda);
+			//vec3 point = eye + direction.normalize()*(lambda-1e-4);
+			vec4 point = vec4(ray.getEye() + ray.getDirection().normalize()*(lambda-1e-4), 1.0f);
 
-			return point;
+			return this->transform*point;
 		}
 
-		return ray.getEye() + ray.getDirection()*(lambda);
+		return ray.getEye() + ray.getDirection()*(lambda-1e-4);
 	}
 
 	vec3 Sphere::getCenter() {
