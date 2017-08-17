@@ -37,7 +37,7 @@ namespace superboy {
 		// Reflection Ray
 		if (intersection.getHitObject()->getMaterials().getSpecular() != color()) {
 			vec3 mirror_vector = intersection.getRay()->getDirection() - 2*(intersection.getRay()->getDirection().dot(surface_normal))*surface_normal;
-			Ray ray_from_mirror = Ray(hitpoint, mirror_vector);
+			Ray ray_from_mirror = Ray(hitpoint + surface_normal*1e-4, mirror_vector.normalize());
 			IntersectionInfo mirror_intersection = scene->intersect(ray_from_mirror);
 
 			if (mirror_intersection.getHitObject() != nullptr) {
@@ -79,7 +79,8 @@ namespace superboy {
 			// Shadow Ray
 			// TODO: Get a little closer to light to overcome numerical errors
 
-			Ray ray_to_light = Ray(hitpoint, light_direction);
+			//Ray ray_to_light = Ray(hitpoint, light_direction);
+			Ray ray_to_light = Ray(hitpoint + surface_normal*1e-4, light_direction);
 			IntersectionInfo light_intersection = scene->intersect(ray_to_light);
 
 

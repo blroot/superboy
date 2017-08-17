@@ -11,7 +11,7 @@ namespace superboy {
 
 	Directional::Directional(vec3 direction, color colorvec) {
 
-		this->direction = direction;
+		this->direction = direction.normalize();
 		this->colorvec = colorvec;
 		this->attenuation = vec3(1.0f, 0.0f, 0.0f);
 	}

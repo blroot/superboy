@@ -32,6 +32,9 @@ namespace superboy {
 		vec3 ray_direction = ray.getDirection();
 		vec3 ray_origin = ray.getEye();
 
+		vec3 point;
+		vec3 normal;
+
 		//if (this->transform != mat4(1.0f)) {
 
 			ray_direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
@@ -63,18 +66,19 @@ namespace superboy {
 			} else if (first_root > 0.0f and second_root < 0.0f) {
 				intersection = first_root;
 			}
-		}
 
-		vec3 point = ray_origin + ray_direction*(intersection);
-		point = this->transform * vec4(point, 1.0f);
+			point = ray_origin + ray_direction*(intersection);
+			point = this->transform * vec4(point, 1.0f);
 
-		if (this->transform != mat4(1.0f)) {
+			//if (this->transform != mat4(1.0f)) {
 			intersection = (vec3(point) - ray.getEye()).norm();
-		}
+			//}
 
-		vec3 normal = this->inverse_transform * vec4(point, 1.0f);
-		normal = vec3(this->inverse_transform.transpose() * (vec4(normal, 0)));
-		normal = normal.normalize();
+			normal = (vec3(this->inverse_transform * vec4(point, 1.0f)) - this->center);
+			normal = this->inverse_transform.transpose() * vec4(normal, 0.0f);
+			normal = normal.normalize();
+
+		}
 
 		//return intersection;
 		return Intersect(intersection, point, normal);

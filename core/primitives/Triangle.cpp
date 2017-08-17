@@ -79,7 +79,7 @@ namespace superboy {
 
 	vec3 Triangle::getPoint(Ray &ray, float &lambda) {
 
-		return ray.getEye() + ray.getDirection()*(lambda-1e-4);
+		return ray.getEye() + ray.getDirection()*(lambda);
 	}
 
 	vec3& Triangle::getA() {

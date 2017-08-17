@@ -21,7 +21,7 @@ namespace superboy {
 	IntersectionInfo::IntersectionInfo() {
 
 		this->minimum_distance = 0;
-		this->hitobject = 0;
+		this->hitobject = nullptr;
 		this->normal = vec3();
 		this->hitpoint = vec3();
 		this->ray = 0;

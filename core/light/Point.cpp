@@ -30,7 +30,7 @@ namespace superboy {
 
 	vec3& Point::getDirection(vec3 &origin) {
 
-		this->direction = this->position - origin;
+		this->direction = (this->position - origin).normalize();
 
 		return this->direction;
 	}
