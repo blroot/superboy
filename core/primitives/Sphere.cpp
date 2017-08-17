@@ -65,14 +65,14 @@ namespace superboy {
 				intersection = second_root;
 			} else if (first_root > 0.0f and second_root < 0.0f) {
 				intersection = first_root;
+			} else {
+				return Intersect();
 			}
 
 			point = ray_origin + ray_direction*(intersection);
 			point = this->transform * vec4(point, 1.0f);
 
-			//if (this->transform != mat4(1.0f)) {
 			intersection = (vec3(point) - ray.getEye()).norm();
-			//}
 
 			normal = (vec3(this->inverse_transform * vec4(point, 1.0f)) - this->center);
 			normal = this->inverse_transform.transpose() * vec4(normal, 0.0f);

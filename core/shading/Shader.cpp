@@ -71,16 +71,16 @@ namespace superboy {
 			vec3 light_direction = this->scene->getLights()[i]->getDirection(hitpoint);
 			color lightcolor = this->scene->getLights()[i]->getColor();
 			vec3 halfvec = (light_direction + scene->getCamera().eye).normalize();
-			float distance_to_light = (light_direction - hitpoint).norm();
-			vec3 attenuation = this->scene->getLights()[i]->getAttenuation();
-			float attenuation_model = attenuation.x + attenuation.y*distance_to_light + attenuation.z*(distance_to_light*distance_to_light);
+			//float distance_to_light = (light_direction - hitpoint).norm();
+			//vec3 attenuation = this->scene->getLights()[i]->getAttenuation();
+			//float attenuation_model = attenuation.x + attenuation.y*distance_to_light + attenuation.z*(distance_to_light*distance_to_light);
 
 
 			// Shadow Ray
 			// TODO: Get a little closer to light to overcome numerical errors
 
 			//Ray ray_to_light = Ray(hitpoint, light_direction);
-			Ray ray_to_light = Ray(hitpoint + surface_normal*1e-4, light_direction);
+			Ray ray_to_light = Ray(hitpoint + surface_normal*1e-4, light_direction.normalize());
 			IntersectionInfo light_intersection = scene->intersect(ray_to_light);
 
 
