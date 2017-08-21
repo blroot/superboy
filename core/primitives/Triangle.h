@@ -24,7 +24,6 @@ namespace superboy {
 			vec3& getB();
 		private:
 			vec3 normal;
-			bool fix_normal;
 			vec3 A;
 			vec3 B;
 			vec3 C;

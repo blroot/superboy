@@ -22,10 +22,14 @@ namespace superboy {
 			vec3& getDirection(vec3& origin);
 			vec3& getAttenuation();
 			color& getColor();
+			vec3& getPosition();
+
+			lightType type;
 		private:
 			vec3 attenuation;
 			vec3 direction;
 			color colorvec;
+			vec3 position;
 	};
 
 } /* namespace superboy */

@@ -80,6 +80,23 @@ namespace superboy {
 		return IntersectionInfo(minimum_distance, normal, hitpoint, ray, hitobject);
 	}
 
+	bool Scene::isInShadow(Ray ray) {
+
+		for (int i = 0; i < this->objects.size(); i++) {
+
+			Intersect intersection;
+
+			intersection = this->objects[i]->intersect(ray);
+
+			if (intersection.getDistance() > 0.0f) {
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	std::vector< std::shared_ptr<Object> >& Scene::getObjects() {
 
 		return this->objects;

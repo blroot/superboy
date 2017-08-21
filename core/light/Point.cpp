@@ -15,6 +15,7 @@ namespace superboy {
 		this->colorvec = colorvec;
 		this->direction = vec3();
 		this->attenuation = vec3(0.0f, 0.0f, 1.0f);
+		this->type = point;
 	}
 
 	void Point::setTransform(mat4 transform) {
@@ -24,13 +25,12 @@ namespace superboy {
 
 	void Point::applyTransform() {
 
-		// Translation - Since we're not using homogeneous coordinates, we do this this way
-		this->position += vec3(this->transform.elements[12], this->transform.elements[13], this->transform.elements[14]);
+		this->position = this->transform * vec4(this->position, 1.0f);
 	}
 
 	vec3& Point::getDirection(vec3 &origin) {
 
-		this->direction = (this->position - origin).normalize();
+		this->direction = (this->position - origin);
 
 		return this->direction;
 	}
@@ -43,6 +43,11 @@ namespace superboy {
 	color& Point::getColor() {
 
 		return this->colorvec;
+	}
+
+	vec3& Point::getPosition() {
+
+		return this->position;
 	}
 
 	Point::~Point() {

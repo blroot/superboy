@@ -25,6 +25,9 @@ namespace superboy {
 			color& getColor();
 			vec3& getAttenuation();
 			mat4& getTranform();
+			vec3& getPosition();
+
+			lightType type;
 			virtual ~Point();
 		private:
 			vec3 attenuation;

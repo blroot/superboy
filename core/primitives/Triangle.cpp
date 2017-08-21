@@ -20,7 +20,6 @@ namespace superboy {
 		this->materials = Materials();
 		this->normal = (this->B-this->A).cross(this->C-this->A).normalize();
 		//this->normal = (this->C-this->A).cross(this->B-this->A).normalize();
-		this->fix_normal = true;
 	}
 
 	Triangle::~Triangle() {

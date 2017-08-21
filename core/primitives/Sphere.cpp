@@ -35,12 +35,9 @@ namespace superboy {
 		vec3 point;
 		vec3 normal;
 
-		//if (this->transform != mat4(1.0f)) {
-
-			ray_direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
-			ray_direction = ray_direction.normalize();
-			ray_origin = this->inverse_transform * vec4(ray.getEye(), 1.0f);
-		//}
+		ray_direction = this->inverse_transform * vec4(ray.getDirection(), 0.0f);
+		ray_direction = ray_direction.normalize();
+		ray_origin = this->inverse_transform * vec4(ray.getEye(), 1.0f);
 
 		float a = ray_direction.dot(ray_direction);
 		float b = 2*(ray_direction.dot(ray_origin - this->center));
@@ -80,7 +77,6 @@ namespace superboy {
 
 		}
 
-		//return intersection;
 		return Intersect(intersection, point, normal);
 	}
 

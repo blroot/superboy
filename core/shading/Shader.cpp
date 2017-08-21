@@ -17,6 +17,7 @@ namespace superboy {
 	Shader::Shader(Scene& scene) {
 
 		this->scene = &scene;
+		this->eyepos = scene.getCamera().eye;
 	}
 
 	color Shader::computeColor(IntersectionInfo &intersection, int recursion_depth) {
@@ -28,11 +29,14 @@ namespace superboy {
 			return color(); // TODO: should be ambient
 		}
 
-		color colorvec = colorModel(intersection);
-
 		vec3 surface_normal = intersection.getNormal();
-
 		vec3 hitpoint = intersection.getPoint();
+
+		// TODO: this is causing troubles
+		//this->eyedir = (this->eyepos - hitpoint).normalize();
+		this->eyedir = this->eyepos;
+
+		color colorvec = colorModel(intersection);
 
 		// Reflection Ray
 		if (intersection.getHitObject()->getMaterials().getSpecular() != color()) {
@@ -41,7 +45,10 @@ namespace superboy {
 			IntersectionInfo mirror_intersection = scene->intersect(ray_from_mirror);
 
 			if (mirror_intersection.getHitObject() != nullptr) {
-				colorvec += computeColor(mirror_intersection, recursion_depth-1);
+				color specular = intersection.getHitObject()->getMaterials().getSpecular();
+				color mirror_color = computeColor(mirror_intersection, recursion_depth-1);
+				//this->eyedir = hitpoint;
+				colorvec += color(specular.x * mirror_color.x, specular.y * mirror_color.y, specular.z * mirror_color.z);
 			}
 		}
 
@@ -70,21 +77,17 @@ namespace superboy {
 
 			vec3 light_direction = this->scene->getLights()[i]->getDirection(hitpoint);
 			color lightcolor = this->scene->getLights()[i]->getColor();
-			vec3 halfvec = (light_direction + scene->getCamera().eye).normalize();
+			vec3 halfvec = (light_direction + this->eyedir).normalize();
 			//float distance_to_light = (light_direction - hitpoint).norm();
 			//vec3 attenuation = this->scene->getLights()[i]->getAttenuation();
 			//float attenuation_model = attenuation.x + attenuation.y*distance_to_light + attenuation.z*(distance_to_light*distance_to_light);
 
 
 			// Shadow Ray
-			// TODO: Get a little closer to light to overcome numerical errors
-
-			//Ray ray_to_light = Ray(hitpoint, light_direction);
 			Ray ray_to_light = Ray(hitpoint + surface_normal*1e-4, light_direction.normalize());
-			IntersectionInfo light_intersection = scene->intersect(ray_to_light);
+			bool is_in_shadow = scene->isInShadow(ray_to_light);
 
-
-			if (light_intersection.getHitObject() == nullptr) {
+			if (!is_in_shadow) {
 
 				color diff_light = color(diffuse.x * lightcolor.x, diffuse.y * lightcolor.y, diffuse.z * lightcolor.z);
 				color spec_light = color(specular.x * lightcolor.x, specular.y * lightcolor.y, specular.z * lightcolor.z);

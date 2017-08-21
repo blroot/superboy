@@ -10,8 +10,8 @@
 namespace superboy {
 
 	Light::Light() {
-		// TODO Auto-generated constructor stub
 
+		this->type = undef;
 	}
 
 	Light::~Light() {
