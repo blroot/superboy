@@ -34,8 +34,8 @@ class Scene {
 		int& getHeight();
 		std::string& getFilename();
 		int& getMaxdepth();
-		IntersectionInfo intersect(Ray ray);
-		bool isInShadow(Ray ray);
+		IntersectionInfo intersect(Ray& ray);
+		bool isInShadow(Ray& ray, float& distance_to_light);
 		virtual ~Scene();
 	private:
 		std::vector< std::shared_ptr<Object> > objects;

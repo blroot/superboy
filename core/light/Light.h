@@ -26,9 +26,10 @@ class Light {
 		Light();
 		virtual ~Light();
 		virtual vec3& getDirection(vec3& origin) =0;
-		virtual vec3& getAttenuation() =0;
+		virtual float getAttenuation(vec3 &hitpoint) =0;
 		virtual color& getColor() =0;
 		virtual vec3& getPosition() =0;
+		virtual float getDistance(vec3& hitpoint) =0;
 	};
 
 } /* namespace superboy */

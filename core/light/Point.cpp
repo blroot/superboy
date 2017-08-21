@@ -35,9 +35,13 @@ namespace superboy {
 		return this->direction;
 	}
 
-	vec3& Point::getAttenuation() {
+	float Point::getAttenuation(vec3 &hitpoint) {
 
-		return this->attenuation;
+		float distance_to_light = this->getDistance(hitpoint);
+
+		float attenuation_model = 1.0f/(attenuation.x + attenuation.y*distance_to_light + attenuation.z*(distance_to_light*distance_to_light));
+
+		return attenuation_model;
 	}
 
 	color& Point::getColor() {
@@ -48,6 +52,11 @@ namespace superboy {
 	vec3& Point::getPosition() {
 
 		return this->position;
+	}
+
+	float Point::getDistance(vec3& hitpoint) {
+
+		return (this->position - hitpoint).norm();
 	}
 
 	Point::~Point() {

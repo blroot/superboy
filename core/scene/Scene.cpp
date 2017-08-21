@@ -55,7 +55,7 @@ namespace superboy {
 		this->maxdepth = depth;
 	}
 
-	IntersectionInfo Scene::intersect(Ray ray) {
+	IntersectionInfo Scene::intersect(Ray &ray) {
 
 		float minimum_distance = INFINITY;
 		std::shared_ptr<Object> hitobject = nullptr;
@@ -80,7 +80,7 @@ namespace superboy {
 		return IntersectionInfo(minimum_distance, normal, hitpoint, ray, hitobject);
 	}
 
-	bool Scene::isInShadow(Ray ray) {
+	bool Scene::isInShadow(Ray &ray, float &distance_to_light) {
 
 		for (int i = 0; i < this->objects.size(); i++) {
 
@@ -88,7 +88,7 @@ namespace superboy {
 
 			intersection = this->objects[i]->intersect(ray);
 
-			if (intersection.getDistance() > 0.0f) {
+			if (intersection.getDistance() > 0.0f and intersection.getDistance() < distance_to_light) {
 
 				return true;
 			}

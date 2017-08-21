@@ -6,6 +6,7 @@
  */
 
 #include "Directional.h"
+#include <math.h>
 
 namespace superboy {
 
@@ -23,9 +24,9 @@ namespace superboy {
 		return this->direction;
 	}
 
-	vec3& Directional::getAttenuation() {
+	float Directional::getAttenuation(vec3 &hitpoint) {
 
-		return this->attenuation;
+		return 1.0f;
 	}
 
 	color& Directional::getColor() {
@@ -36,6 +37,11 @@ namespace superboy {
 	vec3& Directional::getPosition() {
 
 		return this->position;
+	}
+
+	float Directional::getDistance(vec3 &hitpoint) {
+
+		return INFINITY;
 	}
 
 	Directional::~Directional() {

@@ -23,9 +23,10 @@ namespace superboy {
 			void applyTransform();
 			vec3& getDirection(vec3& origin);
 			color& getColor();
-			vec3& getAttenuation();
+			float getAttenuation(vec3& hitpoint);
 			mat4& getTranform();
 			vec3& getPosition();
+			float getDistance(vec3& hitpoint);
 
 			lightType type;
 			virtual ~Point();

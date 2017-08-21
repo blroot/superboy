@@ -20,9 +20,10 @@ namespace superboy {
 			Directional(vec3 direction, color colorvec);
 			virtual ~Directional();
 			vec3& getDirection(vec3& origin);
-			vec3& getAttenuation();
+			float getAttenuation(vec3 &hitpoint);
 			color& getColor();
 			vec3& getPosition();
+			float getDistance(vec3& hitpoint);
 
 			lightType type;
 		private:
