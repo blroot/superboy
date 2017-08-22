@@ -46,7 +46,7 @@ namespace superboy {
 
 		vec3 direction = alpha*this->u + beta*this->v - this->w;
 
-		return Ray(this->eye, direction);
+		return Ray(this->eye, direction.normalize());
 	}
 
 	Camera::~Camera() {

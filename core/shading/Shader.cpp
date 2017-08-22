@@ -32,15 +32,14 @@ namespace superboy {
 		vec3 hitpoint = intersection.getPoint();
 
 		// TODO: this is causing troubles
-		this->eyedir = -1.0f*intersection.getRay()->getDirection();
+		this->eyedir = -1*intersection.getRay()->getDirection();
 		//this->eyedir = vec3(0.0, 0.0, 0.1);
 
 		color colorvec = colorModel(intersection);
 
 		// Reflection Ray
 		if (intersection.getHitObject()->getMaterials().getSpecular() != color()) {
-			vec3 ray_direction = -1.0f*intersection.getRay()->getDirection();
-			vec3 mirror_vector = -1.0f*ray_direction + 2*surface_normal.dot(ray_direction)*surface_normal;
+			vec3 mirror_vector = intersection.getRay()->getDirection() - 2*(intersection.getRay()->getDirection().dot(surface_normal))*surface_normal;
 			Ray ray_from_mirror = Ray(hitpoint + surface_normal*1e-4, mirror_vector);
 			IntersectionInfo mirror_intersection = scene->intersect(ray_from_mirror);
 
