@@ -22,6 +22,7 @@ namespace superboy {
 		this->file = file;
 		this->ambient = color(0.2f, 0.2f, 0.2f);
 		this->shininess = 0.0f;
+		this->attenuation = vec3(1.0f, 0.0f, 0.0f);
 	}
 
 	Scene SceneReader::read() {
@@ -101,6 +102,16 @@ namespace superboy {
 							std::cout << "Setting recursion depth to: " << values[0] << std::endl;
 						}
 
+					} else if (command == "attenuation") {
+
+						valid_input = this->readvals(s, 3, values);
+
+						if (valid_input) {
+
+							this->attenuation = vec3(values[0], values[1], values[2]);
+							std::cout << "Setting attenuation to: " << this->attenuation << std::endl;
+						}
+
 					} else if (command == "ambient") {
 
 						valid_input = this->readvals(s, 3, values);
@@ -139,11 +150,13 @@ namespace superboy {
 
 							std::shared_ptr<Point> point(new Point(position, colorvec));
 
+							point->setAttenuation(this->attenuation);
 							point->setTransform(transfstack.top());
 							point->applyTransform();
 							scene.addLight(point);
 							std::cout << "Adding point light with: position " << position << " color "
 									<< colorvec << std::endl;
+							std::cout << "Setting point light attenuation to: " << this->attenuation << std::endl;
 						}
 
 					} else if (command == "diffuse") {

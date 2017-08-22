@@ -62,7 +62,7 @@ namespace superboy {
 		float alpha = ((dot11*dot20)-(dot10*dot21)) / ((dot00*dot11) - (dot10*dot10));
 		float beta = ((dot00*dot21)-(dot10*dot20)) / ((dot00*dot11) - (dot10*dot10));
 
-		if (alpha >= 0 and alpha <= 1 and beta >= 0 and beta <= 1 and alpha + beta <= 1) {
+		if (alpha >= 0.0 and alpha <= 1.0 and beta >= 0.0 and beta <= 1.0 and alpha + beta <= 1.0) {
 
 			intersection = t;
 		}

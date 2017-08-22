@@ -21,6 +21,7 @@ namespace superboy {
 			Point(vec3 position, color colorvec);
 			void setTransform(mat4 transform);
 			void applyTransform();
+			void setAttenuation(vec3 attenuation);
 			vec3& getDirection(vec3& origin);
 			color& getColor();
 			float getAttenuation(vec3& hitpoint);

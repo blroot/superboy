@@ -34,7 +34,7 @@ build/Sphere.o: core/primitives/Sphere.h
 build/Triangle.o: core/primitives/Triangle.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/primitives/Triangle.cpp -o build/Triangle.o
 build/Scene.o: core/scene/Scene.h
-	$(CC) $(CFLAGS) $(INCFLAGS) -g -c core/scene/Scene.cpp -o build/Scene.o
+	$(CC) $(CFLAGS) $(INCFLAGS) -c core/scene/Scene.cpp -o build/Scene.o
 build/Intersect.o: core/primitives/Intersect.h
 	$(CC) $(CFLAGS) $(INCFLAGS) -c core/primitives/Intersect.cpp -o build/Intersect.o
 build/IntersectionInfo.o: core/scene/IntersectionInfo.h

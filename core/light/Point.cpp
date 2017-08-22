@@ -6,6 +6,7 @@
  */
 
 #include "Point.h"
+#include <iostream>
 
 namespace superboy {
 
@@ -14,8 +15,13 @@ namespace superboy {
 		this->position = position;
 		this->colorvec = colorvec;
 		this->direction = vec3();
-		this->attenuation = vec3(0.0f, 0.0f, 1.0f);
+		this->attenuation = vec3(1.0f, 0.0f, 0.0f);
 		this->type = point;
+	}
+
+	void Point::setAttenuation(vec3 attenuation) {
+
+		this->attenuation = attenuation;
 	}
 
 	void Point::setTransform(mat4 transform) {
@@ -30,7 +36,7 @@ namespace superboy {
 
 	vec3& Point::getDirection(vec3 &origin) {
 
-		this->direction = (this->position - origin);
+		this->direction = (this->position - origin).normalize();
 
 		return this->direction;
 	}
@@ -39,7 +45,7 @@ namespace superboy {
 
 		float distance_to_light = this->getDistance(hitpoint);
 
-		float attenuation_model = 1.0f/(attenuation.x + attenuation.y*distance_to_light + attenuation.z*(distance_to_light*distance_to_light));
+		float attenuation_model = 1.0/(attenuation.x + attenuation.y*distance_to_light + attenuation.z*(distance_to_light*distance_to_light));
 
 		return attenuation_model;
 	}

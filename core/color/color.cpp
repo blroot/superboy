@@ -19,6 +19,7 @@ namespace superboy {
 
 	color::color(float x, float y, float z) {
 
+		/*
 		if (x > 1.0f) {
 			this->x = 1.0f;
 		} else if (x < 0.0f) {
@@ -42,6 +43,11 @@ namespace superboy {
 		} else {
 			this->z = z;
 		}
+		*/
+
+		this->x = x;
+		this->y = y;
+		this->z = z;
 	}
 
 	color color::normalize() const {

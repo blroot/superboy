@@ -41,12 +41,12 @@ namespace superboy {
 
 		float aspect = (float)width/(float)height;
 
-		float alpha = aspect * tan(this->fov/2) * (pixel_x_center - (width/2))/(width/2);
-		float beta = tan(this->fov/2) * ((height/2) - pixel_y_center)/(height/2);
+		float alpha = aspect * tan(this->fov/2.0) * (pixel_x_center - (width/2.0))/(width/2.0);
+		float beta = tan(this->fov/2.0) * ((height/2.0) - pixel_y_center)/(height/2.0);
 
 		vec3 direction = alpha*this->u + beta*this->v - this->w;
 
-		return Ray(this->eye, direction.normalize());
+		return Ray(this->eye, direction);
 	}
 
 	Camera::~Camera() {

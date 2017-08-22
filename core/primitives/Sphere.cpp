@@ -47,20 +47,20 @@ namespace superboy {
 
 		// No real roots - no intersection
 		// Both roots equal: ray tangent to sphere. I decide to set no intersection
-		if (discriminant >= 0.0f) {
+		if (discriminant >= 0.0) {
 			// Compute roots
 			float first_root = (-b + sqrt(discriminant))/2*a;
 			float second_root = (-b - sqrt(discriminant))/2*a;
 
-			if (first_root > 0.0f and second_root > 0.0f) {
+			if (first_root > 0.0 and second_root > 0.0) {
 				if (first_root > second_root) {
 					intersection = second_root;
 				} else {
 					intersection = first_root;
 				}
-			} else if (first_root < 0.0f and second_root > 0.0f) {
+			} else if (first_root < 0.0 and second_root > 0.0) {
 				intersection = second_root;
-			} else if (first_root > 0.0f and second_root < 0.0f) {
+			} else if (first_root > 0.0 and second_root < 0.0) {
 				intersection = first_root;
 			} else {
 				return Intersect();

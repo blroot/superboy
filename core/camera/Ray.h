@@ -16,7 +16,6 @@ namespace superboy {
 	class Ray {
 		public:
 			Ray(vec3 eye, vec3 direction);
-			vec3 getPoint(float& lambda);
 			vec3& getEye();
 			vec3& getDirection();
 			virtual ~Ray();

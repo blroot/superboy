@@ -23,7 +23,6 @@ namespace superboy {
 			Scene* scene;
 			color colorModel(IntersectionInfo& intersection);
 			vec3 eyedir;
-			vec3 eyepos;
 	};
 
 } /* namespace superboy */

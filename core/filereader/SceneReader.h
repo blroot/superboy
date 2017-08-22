@@ -32,6 +32,7 @@ class SceneReader {
 		color diffuse;
 		color specular;
 		color emission;
+		vec3 attenuation;
 		float shininess;
 		std::vector<vec3> vertex_buffer;
 };
