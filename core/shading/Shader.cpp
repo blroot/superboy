@@ -31,16 +31,12 @@ namespace superboy {
 		vec3 surface_normal = intersection.getNormal();
 		vec3 hitpoint = intersection.getPoint();
 
-		// TODO: this is causing troubles
-		this->eyedir = -1*intersection.getRay()->getDirection();
-		//this->eyedir = vec3(0.0, 0.0, 0.1);
-
 		color colorvec = colorModel(intersection);
 
 		// Reflection Ray
 		if (intersection.getHitObject()->getMaterials().getSpecular() != color()) {
 			vec3 mirror_vector = intersection.getRay()->getDirection() - 2*(intersection.getRay()->getDirection().dot(surface_normal))*surface_normal;
-			Ray ray_from_mirror = Ray(hitpoint + surface_normal*1e-4, mirror_vector);
+			Ray ray_from_mirror = Ray(hitpoint + surface_normal*1e-4, mirror_vector.normalize());
 			IntersectionInfo mirror_intersection = scene->intersect(ray_from_mirror);
 
 			if (mirror_intersection.getHitObject() != nullptr) {
@@ -74,7 +70,8 @@ namespace superboy {
 		for (int i = 0; i < this->scene->getLights().size(); i++) {
 
 			vec3 light_direction = this->scene->getLights()[i]->getDirection(hitpoint);
-			vec3 halfvec = (light_direction + this->eyedir).normalize();
+
+			vec3 halfvec = (light_direction + -1*intersection.getRay()->getDirection()).normalize();
 			float distance_to_light = this->scene->getLights()[i]->getDistance(hitpoint);
 			float attenuation_model = this->scene->getLights()[i]->getAttenuation(hitpoint);
 
@@ -89,8 +86,8 @@ namespace superboy {
 				color diff_light = color(diffuse.x * lightcolor.x, diffuse.y * lightcolor.y, diffuse.z * lightcolor.z);
 				color spec_light = color(specular.x * lightcolor.x, specular.y * lightcolor.y, specular.z * lightcolor.z);
 
-				color lambert = diff_light * std::max(surface_normal.normalize().dot(light_direction), 0.0f);
-				color phong = spec_light * pow(std::max(surface_normal.dot(halfvec), 0.0f), intersection.getHitObject()->getMaterials().getShininess());
+				color lambert = diff_light * std::max<float>(surface_normal.normalize().dot(light_direction), 0.0f);
+				color phong = spec_light * pow(std::max<float>(surface_normal.dot(halfvec), 0.0), (int)intersection.getHitObject()->getMaterials().getShininess());
 
 				colorvec += attenuation_model * (lambert + phong);
 			}

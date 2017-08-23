@@ -54,9 +54,9 @@ namespace superboy {
 		int pixelsElement = 0;
 		for (int i = 0; i < this->height; i++) {
 			for (int j = 0; j < this->width; j++) {
-				pixels[pixelsElement] = getColor(i, j).z*255;
-				pixels[pixelsElement+1] = getColor(i, j).y*255;
-				pixels[pixelsElement+2] = getColor(i, j).x*255;
+				pixels[pixelsElement] = getColor(i, j).z*255.0f;
+				pixels[pixelsElement+1] = getColor(i, j).y*255.0f;
+				pixels[pixelsElement+2] = getColor(i, j).x*255.0f;
 				pixelsElement += 3;
 			}
 		}

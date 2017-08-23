@@ -22,7 +22,6 @@ namespace superboy {
 		private:
 			Scene* scene;
 			color colorModel(IntersectionInfo& intersection);
-			vec3 eyedir;
 	};
 
 } /* namespace superboy */

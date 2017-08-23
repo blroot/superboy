@@ -54,24 +54,24 @@ namespace superboy {
 
 		float x, y, z;
 
-		if (this->x > 255.0f) {
-			x = 255.0f;
+		if (this->x > 1.0f) {
+			x = 1.0f;
 		} else if (this->x < 0.0f) {
 			x = 0.0f;
 		} else {
 			x = this->x;
 		}
 
-		if (this->y > 255.0f) {
-			y = 255.0f;
+		if (this->y > 1.0f) {
+			y = 1.0f;
 		} else if (this->y < 0.0f) {
 			y = 0.0f;
 		} else {
 			y = this->y;
 		}
 
-		if (this->z > 255.0f) {
-			z = 255.0f;
+		if (this->z > 1.0f) {
+			z = 1.0f;
 		} else if (this->z < 0.0f) {
 			z = 0.0f;
 		} else {
