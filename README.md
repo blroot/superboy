@@ -1,5 +1,7 @@
 # superboy
 
+![stanford dragon and spheres](https://github.com/blroot/superboy/blob/master/readme.png)
+
 An non-realtime ray tracing rendering engine for linux featuring:
 - Tranformations: translate, scale, rotate
 - Lights: point and directional, quadratic attenuation model (only for point)
@@ -12,6 +14,10 @@ An non-realtime ray tracing rendering engine for linux featuring:
 
 ## Usage
 `./superboy <scene_file>`
+
+## Scene files
+
+Some example scenes are provided under testscenes
 
 Scene files are just text files with the following procedural commands:
 
