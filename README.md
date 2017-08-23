@@ -91,5 +91,11 @@ To build just run make
 `make`
 
 ## running the tests (for math own library)
-Yo will need the Google test library installed
+You will need the Google test library installed
 https://github.com/google/googletest
+
+then 
+
+`make tests`
+
+`./tests`
