@@ -8,7 +8,7 @@ An non-realtime ray tracing rendering engine for linux featuring:
 - Recursive mirror reflections
 - Shadows
 - Basic primitives: Spheres and Triangles
-- Blinn-Phong shading model
+- Blinn-Phong illumination model
 - Scene file parsing
 - Multithreading
 
